@@ -27,3 +27,41 @@ git
    
 ## 数据库设计 v1
 三张表，用户表（user）、消息表（information）、类型消息关联表（type_info）。用户表和消息表一对多关联，类型消息关联表和消息表一对多关联。具体数据库中属性和表设计图在数据库设计文件夹中。
+
+## 后台实现 v1
+
+使用SSM框架  
+前后台交互举例  
+### User 用户表控制
+增删改查使用Restful风格  
+url | Method | Type
+---|---|---
+/user | RequestMethod.POST | 增加
+/user/{id} | RequestMethod.GET | 查询
+/user/{id} | RequestMethod.DELETE | 删除
+/user | RequestMethod.PUT | 更新
+### TypeInfo 类型表控制
+url | Method | Type
+---|---|---
+/typeInfo | RequestMethod.POST | 增加
+/typeInfo/{id} | RequestMethod.GET | 查询
+/typeInfo/{id} | RequestMethod.DELETE | 删除
+/typeInfo | RequestMethod.PUT | 更新
+### Information 信息表控制
+url | Method | Type
+---|---|---
+/information | RequestMethod.POST | 增加
+/information/{id} | RequestMethod.GET | 查询
+/information/{id} | RequestMethod.DELETE | 删除
+/information | RequestMethod.PUT | 更新
+### 具体json交互 
+#### post，put
+1. 设置header
+content-type:application/json  
+![image](https://note.youdao.com/yws/public/resource/b206b0696902b63dba4730bf7b2d837a/xmlnote/DC00D0A6FA1C4F049A1E97E87FBBD767/22137)  
+2. 构造json数据  
+![image](https://note.youdao.com/yws/public/resource/b206b0696902b63dba4730bf7b2d837a/xmlnote/E870E41A99F445F9867FDAF7E5F8D07F/22134)  
+
+#### get,delete
+1. 设置参数
+![image](https://note.youdao.com/yws/public/resource/b206b0696902b63dba4730bf7b2d837a/xmlnote/6F51867C666F4DB89CB8C2F16FF00021/22155)

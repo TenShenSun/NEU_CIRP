@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun.dao.TypeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sun.model.TypeInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="yn" property="yn" jdbcType="BIT" />
+    <result column="ts" property="ts" jdbcType="TIMESTAMP" />
+    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, yn, ts, createDate, deleteDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sun.model.TypeInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from type_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from type_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from type_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sun.model.TypeInfoExample" >
+    delete from type_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sun.model.TypeInfo" >
+    insert into type_info (id, name, yn, ts, 
+      createDate, deleteDate)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{yn,jdbcType=BIT}, #{ts,jdbcType=TIMESTAMP}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{deletedate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun.model.TypeInfo" >
+    insert into type_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="yn != null" >
+        yn,
+      </if>
+      <if test="ts != null" >
+        ts,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="deletedate != null" >
+        deleteDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="yn != null" >
+        #{yn,jdbcType=BIT},
+      </if>
+      <if test="ts != null" >
+        #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedate != null" >
+        #{deletedate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sun.model.TypeInfoExample" resultType="java.lang.Integer" >
+    select count(*) from type_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update type_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yn != null" >
+        yn = #{record.yn,jdbcType=BIT},
+      </if>
+      <if test="record.ts != null" >
+        ts = #{record.ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deletedate != null" >
+        deleteDate = #{record.deletedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update type_info
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      yn = #{record.yn,jdbcType=BIT},
+      ts = #{record.ts,jdbcType=TIMESTAMP},
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      deleteDate = #{record.deletedate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun.model.TypeInfo" >
+    update type_info
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="yn != null" >
+        yn = #{yn,jdbcType=BIT},
+      </if>
+      <if test="ts != null" >
+        ts = #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedate != null" >
+        deleteDate = #{deletedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun.model.TypeInfo" >
+    update type_info
+    set name = #{name,jdbcType=VARCHAR},
+      yn = #{yn,jdbcType=BIT},
+      ts = #{ts,jdbcType=TIMESTAMP},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      deleteDate = #{deletedate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -34,6 +34,7 @@ git
 前后台交互举例  
 ### User 用户表控制
 增删改查使用Restful风格  
+
 url | Method | Type
 ---|---|---
 /user | RequestMethod.POST | 增加

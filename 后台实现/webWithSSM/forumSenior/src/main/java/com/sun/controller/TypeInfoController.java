@@ -21,6 +21,7 @@ public class TypeInfoController {
 
 
     @RequestMapping(value = "/typeInfo", method = RequestMethod.POST)
+    @ResponseBody
     public String addTypeInfo(@RequestBody TypeInfo typeInfo) {
         typeInfoService.postTypeInfo(typeInfo);
         return "add";
@@ -37,12 +38,14 @@ public class TypeInfoController {
     }
 
     @RequestMapping(value = "/typeInfo", method = RequestMethod.PUT)
+    @ResponseBody
     public String updateTypeInfo(@RequestBody TypeInfo typeInfo) {
         typeInfoService.putTypeInfo(typeInfo);
         return "update";
     }
 
     @RequestMapping(value = "/typeInfo/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
     public String deleteTypeInfo(@PathVariable Integer id) {
         typeInfoService.deleteTypeInfo(id);
         return "delete";

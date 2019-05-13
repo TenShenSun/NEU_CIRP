@@ -18,6 +18,7 @@ public class InformationController {
     private InformationService informationService;
 
     @RequestMapping(value = "/information", method = RequestMethod.POST)
+    @ResponseBody
     public String addInformation(@RequestBody Information information) {
         informationService.postInformation(information);
         return "add";
@@ -34,12 +35,14 @@ public class InformationController {
     }
 
     @RequestMapping(value = "/information", method = RequestMethod.PUT)
+    @ResponseBody
     public String updateInformation(@RequestBody Information information) {
         informationService.putInformation(information);
         return "update";
     }
 
     @RequestMapping(value = "/information/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
     public String deleteInformation(@PathVariable Integer id) {
         informationService.deleteInformation(id);
         return "delete";

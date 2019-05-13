@@ -25,6 +25,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @ResponseBody
     public String addUser(@RequestBody User user) {
         userService.postUser(user);
         return "add";
@@ -43,12 +44,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    @ResponseBody
     public String updateUser(@RequestBody User user) {
         userService.putUser(user);
         return "update";
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
     public String deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
         return "delete";

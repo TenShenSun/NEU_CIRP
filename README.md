@@ -67,5 +67,5 @@ content-type:application/json
 1. 设置参数
 ![image](https://note.youdao.com/yws/public/resource/b206b0696902b63dba4730bf7b2d837a/xmlnote/6F51867C666F4DB89CB8C2F16FF00021/22155)
 
-## 数据库设计v2
+## 数据库设计 v2
 新增behavior表记录用户行为，info_fav_read中间表用于记录用户与消息之间的收藏查看关系，更新用户表中头像链接字段和性别字段，更新数据库设计文件夹中属性和表设计图。

@@ -5,12 +5,15 @@ import java.util.Date;
 public class User {
     private String id;
 
-
     private String username;
 
     private String type;
 
     private String orgName;
+
+    private Boolean gender;
+
+    private String avatarUrl;
 
     private Boolean yn;
 
@@ -19,14 +22,6 @@ public class User {
     private Date createdate;
 
     private Date deletedate;
-
-    public User() {
-    }
-
-    public User(String id, String username) {
-        this.id = id;
-        this.username = username;
-    }
 
     public String getId() {
         return id;
@@ -58,6 +53,22 @@ public class User {
 
     public void setOrgName(String orgName) {
         this.orgName = orgName == null ? null : orgName.trim();
+    }
+
+    public Boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(Boolean gender) {
+        this.gender = gender;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 
     public Boolean getYn() {

@@ -10,11 +10,15 @@ public interface InformationService {
 
     public Information getInformationById(Integer id);
 
-    public Information getInformationWithUserTypeById(Integer id);
+    public Information getInformationByIdWithUserAndTypeInfo(Integer id);
 
     public List<Information> getInformationsByCondition(InformationExample example);
 
-    public List<Information> getInformationsWithUserTypeByCondition(InformationExample example);
+    public List<Information> getInformationsByConditionWithUserAndTypeInfo(InformationExample example);
+
+    public List<Information> getInformationsByConditionOrderByTime();
+
+    public List<Information> getInformationsByConditionOrderByViewAndTime();
 
     public int putInformation(Information information);
 

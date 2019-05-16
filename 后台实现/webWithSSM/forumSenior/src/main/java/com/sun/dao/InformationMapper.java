@@ -18,11 +18,15 @@ public interface InformationMapper {
 
     List<Information> selectByExample(InformationExample example);
 
+    List<Information> selectByExampleWithUserAndTypeInfo(InformationExample example);
+
+    List<Information> selectByExampleOrderByTime(InformationExample example);
+
+    List<Information> selectByExampleOrderByViewAndTime(InformationExample example);
+
     Information selectByPrimaryKey(Integer id);
 
-    List<Information> selectByExampleWithUserType(InformationExample example);
-
-    Information selectByPrimaryKeyWithUserType(Integer id);
+    Information selectByPrimaryKeyWithUserAndTypeInfo(Integer id);
 
     int updateByExampleSelective(@Param("record") Information record, @Param("example") InformationExample example);
 

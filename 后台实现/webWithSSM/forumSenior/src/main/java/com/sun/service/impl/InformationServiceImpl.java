@@ -12,40 +12,52 @@ import java.util.List;
 @Service
 public class InformationServiceImpl implements InformationService {
     @Autowired
-    private InformationMapper informationMapper;
+    private InformationMapper mapper;
 
     @Override
     public int postInformation(Information information) {
-        return informationMapper.insertSelective(information);
+        return mapper.insertSelective(information);
     }
 
     @Override
     public Information getInformationById(Integer id) {
-        return informationMapper.selectByPrimaryKey(id);
+        return mapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public Information getInformationWithUserTypeById(Integer id) {
-        return informationMapper.selectByPrimaryKeyWithUserType(id);
+    public Information getInformationByIdWithUserAndTypeInfo(Integer id) {
+        return mapper.selectByPrimaryKeyWithUserAndTypeInfo(id);
     }
 
     @Override
     public List<Information> getInformationsByCondition(InformationExample example) {
-        return informationMapper.selectByExample(example);
+        return mapper.selectByExample(example);
     }
 
     @Override
-    public List<Information> getInformationsWithUserTypeByCondition(InformationExample example) {
-        return informationMapper.selectByExampleWithUserType(example);
+    public List<Information> getInformationsByConditionWithUserAndTypeInfo(InformationExample example) {
+        return mapper.selectByExampleWithUserAndTypeInfo(example);
+    }
+
+    @Override
+    public List<Information> getInformationsByConditionOrderByTime() {
+        InformationExample example=new InformationExample();
+        return mapper.selectByExampleOrderByTime(example);
+    }
+
+    @Override
+    public List<Information> getInformationsByConditionOrderByViewAndTime() {
+        InformationExample example=new InformationExample();
+        return mapper.selectByExampleOrderByViewAndTime(example);
     }
 
     @Override
     public int putInformation(Information information) {
-        return informationMapper.updateByPrimaryKeySelective(information);
+        return mapper.updateByPrimaryKeySelective(information);
     }
 
     @Override
     public int deleteInformation(Integer id) {
-        return informationMapper.deleteByPrimaryKey(id);
+        return mapper.deleteByPrimaryKey(id);
     }
 }

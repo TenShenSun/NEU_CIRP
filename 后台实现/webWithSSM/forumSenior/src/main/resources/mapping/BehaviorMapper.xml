@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun.dao.BehaviorMapper">
+    <resultMap id="BaseResultMap" type="com.sun.model.Behavior">
+        <id column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <id column="timestamp" property="timestamp" jdbcType="TIMESTAMP"/>
+        <result column="behavior" property="behavior" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="BaseResultMapWithUser" type="com.sun.model.Behavior">
+        <id column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <id column="timestamp" property="timestamp" jdbcType="TIMESTAMP"/>
+        <result column="behavior" property="behavior" jdbcType="VARCHAR"/>
+        <association property="user" column="user_id" select="com.sun.dao.UserMapper.selectByPrimaryKey"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    user_id, timestamp, behavior
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sun.model.BehaviorExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from behavior
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExampleWithUser" resultMap="BaseResultMapWithUser"
+            parameterType="com.sun.model.BehaviorExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from behavior
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from behavior
+        where user_id = #{userId,jdbcType=VARCHAR}
+        and timestamp = #{timestamp,jdbcType=TIMESTAMP}
+    </select>
+    <select id="selectByPrimaryKeyWithUser" resultMap="BaseResultMapWithUser" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from behavior
+        where user_id = #{userId,jdbcType=VARCHAR}
+        and timestamp = #{timestamp,jdbcType=TIMESTAMP}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from behavior
+    where user_id = #{userId,jdbcType=VARCHAR}
+      and timestamp = #{timestamp,jdbcType=TIMESTAMP}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.sun.model.BehaviorExample">
+        delete from behavior
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.sun.model.Behavior">
+    insert into behavior (user_id, timestamp, behavior
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{timestamp,jdbcType=TIMESTAMP}, #{behavior,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.sun.model.Behavior">
+        insert into behavior
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="timestamp != null">
+                timestamp,
+            </if>
+            <if test="behavior != null">
+                behavior,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="timestamp != null">
+                #{timestamp,jdbcType=TIMESTAMP},
+            </if>
+            <if test="behavior != null">
+                #{behavior,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.sun.model.BehaviorExample" resultType="java.lang.Integer">
+        select count(*) from behavior
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update behavior
+        <set>
+            <if test="record.userId != null">
+                user_id = #{record.userId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.timestamp != null">
+                timestamp = #{record.timestamp,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.behavior != null">
+                behavior = #{record.behavior,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update behavior
+        set user_id = #{record.userId,jdbcType=VARCHAR},
+        timestamp = #{record.timestamp,jdbcType=TIMESTAMP},
+        behavior = #{record.behavior,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sun.model.Behavior">
+        update behavior
+        <set>
+            <if test="behavior != null">
+                behavior = #{behavior,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=VARCHAR}
+        and timestamp = #{timestamp,jdbcType=TIMESTAMP}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sun.model.Behavior">
+    update behavior
+    set behavior = #{behavior,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+      and timestamp = #{timestamp,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

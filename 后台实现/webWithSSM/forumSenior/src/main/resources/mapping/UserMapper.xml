@@ -6,6 +6,8 @@
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="BIT" />
+    <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
     <result column="yn" property="yn" jdbcType="BIT" />
     <result column="ts" property="ts" jdbcType="TIMESTAMP" />
     <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
@@ -70,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, username, type, org_name, yn, ts, createDate, deleteDate
+    id, username, type, org_name, gender, avatar_url, yn, ts, createDate, deleteDate
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sun.model.UserExample" >
     select
@@ -104,10 +106,12 @@
   </delete>
   <insert id="insert" parameterType="com.sun.model.User" >
     insert into user (id, username, type, 
-      org_name, yn, ts, createDate, 
+      org_name, gender, avatar_url, 
+      yn, ts, createDate, 
       deleteDate)
     values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{orgName,jdbcType=VARCHAR}, #{yn,jdbcType=BIT}, #{ts,jdbcType=TIMESTAMP}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{orgName,jdbcType=VARCHAR}, #{gender,jdbcType=BIT}, #{avatarUrl,jdbcType=VARCHAR}, 
+      #{yn,jdbcType=BIT}, #{ts,jdbcType=TIMESTAMP}, #{createdate,jdbcType=TIMESTAMP}, 
       #{deletedate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sun.model.User" >
@@ -124,6 +128,12 @@
       </if>
       <if test="orgName != null" >
         org_name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url,
       </if>
       <if test="yn != null" >
         yn,
@@ -150,6 +160,12 @@
       </if>
       <if test="orgName != null" >
         #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="avatarUrl != null" >
+        #{avatarUrl,jdbcType=VARCHAR},
       </if>
       <if test="yn != null" >
         #{yn,jdbcType=BIT},
@@ -186,6 +202,12 @@
       <if test="record.orgName != null" >
         org_name = #{record.orgName,jdbcType=VARCHAR},
       </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=BIT},
+      </if>
+      <if test="record.avatarUrl != null" >
+        avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      </if>
       <if test="record.yn != null" >
         yn = #{record.yn,jdbcType=BIT},
       </if>
@@ -209,6 +231,8 @@
       username = #{record.username,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       org_name = #{record.orgName,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=BIT},
+      avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
       yn = #{record.yn,jdbcType=BIT},
       ts = #{record.ts,jdbcType=TIMESTAMP},
       createDate = #{record.createdate,jdbcType=TIMESTAMP},
@@ -228,6 +252,12 @@
       </if>
       <if test="orgName != null" >
         org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=BIT},
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
       </if>
       <if test="yn != null" >
         yn = #{yn,jdbcType=BIT},
@@ -249,6 +279,8 @@
     set username = #{username,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       org_name = #{orgName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=BIT},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
       yn = #{yn,jdbcType=BIT},
       ts = #{ts,jdbcType=TIMESTAMP},
       createDate = #{createdate,jdbcType=TIMESTAMP},

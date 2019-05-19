@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 
 
 @Controller
@@ -24,14 +25,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //OK
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
     public String addUser(@RequestBody User user) {
+        user.setTs(new Timestamp(System.currentTimeMillis()));
+        user.setCreatedate(new Timestamp(System.currentTimeMillis()));
         userService.postUser(user);
-        return "add";
+        return "add user success";
     }
 
-
+    //OK
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     @ResponseBody
     public User selectUser(@PathVariable String id) {
@@ -43,17 +47,20 @@ public class UserController {
         return json.toJSONString();*/
     }
 
+    //OK
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
     @ResponseBody
     public String updateUser(@RequestBody User user) {
+        user.setTs(new Timestamp(System.currentTimeMillis()));
         userService.putUser(user);
-        return "update";
+        return "update user success";
     }
 
+    //OK
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public String deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
-        return "delete";
+        return "delete user success";
     }
 }

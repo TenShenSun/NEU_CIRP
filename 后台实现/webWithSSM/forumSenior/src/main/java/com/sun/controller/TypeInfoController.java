@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+
 
 @Controller
 @RequestMapping("")
@@ -21,8 +23,10 @@ public class TypeInfoController {
     @RequestMapping(value = "/typeInfo", method = RequestMethod.POST)
     @ResponseBody
     public String addTypeInfo(@RequestBody TypeInfo typeInfo) {
+        typeInfo.setTs(new Timestamp(System.currentTimeMillis()));
+        typeInfo.setCreatedate(new Timestamp(System.currentTimeMillis()));
         service.postTypeInfo(typeInfo);
-        return "add";
+        return "add typeinfo success";
     }
 
     @RequestMapping(value = "/typeInfo/{id}", method = RequestMethod.GET)
@@ -38,14 +42,15 @@ public class TypeInfoController {
     @RequestMapping(value = "/typeInfo", method = RequestMethod.PUT)
     @ResponseBody
     public String updateTypeInfo(@RequestBody TypeInfo typeInfo) {
+        typeInfo.setTs(new Timestamp(System.currentTimeMillis()));
         service.putTypeInfo(typeInfo);
-        return "update";
+        return "update typeinfo success";
     }
 
     @RequestMapping(value = "/typeInfo/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public String deleteTypeInfo(@PathVariable Integer id) {
         service.deleteTypeInfo(id);
-        return "delete";
+        return "delete typeinfo success";
     }
 }

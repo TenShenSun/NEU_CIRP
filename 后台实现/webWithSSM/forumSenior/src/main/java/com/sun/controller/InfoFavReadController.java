@@ -4,6 +4,7 @@ import com.sun.model.InfoFavRead;
 import com.sun.model.TypeInfo;
 import com.sun.service.InfoFavReadService;
 import com.sun.service.TypeInfoService;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,32 +20,34 @@ public class InfoFavReadController {
     @Autowired
     private InfoFavReadService service;
 
-
-    @RequestMapping(value = "/infoFavRead", method = RequestMethod.POST)
+    //OK
+    @RequestMapping(value = "/infofavread", method = RequestMethod.POST)
     @ResponseBody
     public String addInfoFavRead(@RequestBody InfoFavRead infoFavRead) {
         service.postInfoFavRead(infoFavRead);
-        return "add";
+        return "add inforavread success";
     }
 
-    @RequestMapping(value = "/infoFavRead/{userid}/{infoid}", method = RequestMethod.GET)
+    //OK
+    @RequestMapping(value = "/infofavread/{userid}/{infoid}", method = RequestMethod.GET)
     @ResponseBody
-    public InfoFavRead selectInfoFavRead(@PathVariable String userid,@PathVariable Integer infoid) {
+    public InfoFavRead selectInfoFavRead(@PathVariable String userid, @PathVariable Integer infoid) {
         InfoFavRead i = service.getInfoFavReadById(userid, infoid);
         return i;
     }
-
-    @RequestMapping(value = "/infoFavRead", method = RequestMethod.PUT)
+//OK
+    // Json中Boolean用True或者False表示
+    @RequestMapping(value = "/infofavread", method = RequestMethod.PUT)
     @ResponseBody
     public String updateInfoFavRead(@RequestBody InfoFavRead infoFavRead) {
         service.putInfoFavRead(infoFavRead);
-        return "update";
+        return "update inforavread success";
     }
 
-    @RequestMapping(value = "/infoFavRead/{userid}/{infoid}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/infofavread/{userid}/{infoid}", method = RequestMethod.DELETE)
     @ResponseBody
-    public String deleteInfoFavRead(@PathVariable String userid,@PathVariable Integer infoid) {
+    public String deleteInfoFavRead(@PathVariable String userid, @PathVariable Integer infoid) {
         service.deleteInfoFavRead(userid, infoid);
-        return "delete";
+        return "delete inforavread success";
     }
 }

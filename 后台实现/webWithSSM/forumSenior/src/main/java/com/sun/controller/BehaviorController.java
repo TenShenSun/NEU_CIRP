@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -20,11 +22,12 @@ public class BehaviorController {
     @Autowired
     private BehaviorService service;
 
-
+    //OK
     @RequestMapping(value = "/behavior", method = RequestMethod.POST)
     @ResponseBody
     public String addBehavior(@RequestBody Behavior behavior) {
+        behavior.setTimestamp(new Timestamp(System.currentTimeMillis()));
         service.postBehavior(behavior);
-        return "add";
+        return "add behavior success";
     }
 }

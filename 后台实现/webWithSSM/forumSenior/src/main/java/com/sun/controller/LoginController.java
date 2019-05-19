@@ -66,7 +66,7 @@ public class LoginController {
         // {"session_key":"XXXX","openid":"XXXX"}
         //return result;
 
-        return "success";
+        return result;
     }
 
 }

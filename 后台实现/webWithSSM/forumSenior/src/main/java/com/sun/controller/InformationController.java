@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
+
 @Controller
 @RequestMapping("")
 public class InformationController {
@@ -20,8 +22,10 @@ public class InformationController {
     @RequestMapping(value = "/information", method = RequestMethod.POST)
     @ResponseBody
     public String addInformation(@RequestBody Information information) {
+        information.setCreatedate(new Timestamp(System.currentTimeMillis()));
+        information.setTs(new Timestamp(System.currentTimeMillis()));
         informationService.postInformation(information);
-        return "add";
+        return "add information success";
     }
 
     @RequestMapping(value = "/information/{id}", method = RequestMethod.GET)
@@ -37,14 +41,15 @@ public class InformationController {
     @RequestMapping(value = "/information", method = RequestMethod.PUT)
     @ResponseBody
     public String updateInformation(@RequestBody Information information) {
+        information.setTs(new Timestamp(System.currentTimeMillis()));
         informationService.putInformation(information);
-        return "update";
+        return "update information success";
     }
 
     @RequestMapping(value = "/information/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public String deleteInformation(@PathVariable Integer id) {
         informationService.deleteInformation(id);
-        return "delete";
+        return "delete information success";
     }
 }

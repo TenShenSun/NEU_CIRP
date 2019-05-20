@@ -62,4 +62,34 @@ public class InformationMapperTest {
         System.out.println(information.getUser().getUsername());
         System.out.println(information.getTypeInfo().getName());
     }
+
+    @Test
+    public void selectByUseridOrderByView() {
+        List<Information> information=mapper.selectByUseridOrderByView("tianshengdagoudan");
+        for (Information i :information
+                ) {
+            System.out.println(i.getId());
+        }
+    }
+
+    @Test
+    public void selectByUseridOrderByFav() {
+        List<Information> information=mapper.selectByUseridOrderByFav("tianshengdagoudan");
+        for (Information i :information
+        ) {
+            System.out.println(i.getId());
+        }
+    }
+    @Test
+    public void selectByTypeId() {
+        InformationExample example = new InformationExample();
+        InformationExample.Criteria criteria = example.createCriteria();
+        criteria.andTypeIdEqualTo(7);
+        List<Information> list = mapper.selectByExampleWithUserAndTypeInfo(example);
+        System.out.println(list.size());
+        for (Information i : list
+        ) {
+            System.out.println(i.getId());
+        }
+    }
 }

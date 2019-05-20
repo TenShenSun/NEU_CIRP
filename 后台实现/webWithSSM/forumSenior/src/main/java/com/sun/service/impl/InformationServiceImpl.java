@@ -35,6 +35,15 @@ public class InformationServiceImpl implements InformationService {
     }
 
     @Override
+    public List<Information> getInformationsByConditionWithTypeid(Integer typeid) {
+        InformationExample example = new InformationExample();
+        InformationExample.Criteria criteria = example.createCriteria();
+        criteria.andTypeIdEqualTo(typeid);
+        List<Information> list = mapper.selectByExampleWithUserAndTypeInfo(example);
+        return list;
+    }
+
+    @Override
     public List<Information> getInformationsByConditionWithUserAndTypeInfo(InformationExample example) {
         return mapper.selectByExampleWithUserAndTypeInfo(example);
     }
@@ -49,6 +58,22 @@ public class InformationServiceImpl implements InformationService {
     public List<Information> getInformationsByConditionOrderByViewAndTime() {
         InformationExample example=new InformationExample();
         return mapper.selectByExampleOrderByViewAndTime(example);
+    }
+
+    @Override
+    public List<Information> getInformationsByConditionOrderByFavAndTime() {
+        InformationExample example=new InformationExample();
+        return mapper.selectByExampleOrderByFav(example);
+    }
+
+    @Override
+    public List<Information> getInformationsByUseridOrderByView(String userid) {
+        return mapper.selectByUseridOrderByView(userid);
+    }
+
+    @Override
+    public List<Information> getInformationsByUseridOrderByFav(String userid) {
+        return mapper.selectByUseridOrderByFav(userid);
     }
 
     @Override

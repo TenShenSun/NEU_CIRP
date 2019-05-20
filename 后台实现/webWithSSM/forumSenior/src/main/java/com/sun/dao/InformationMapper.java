@@ -24,6 +24,12 @@ public interface InformationMapper {
 
     List<Information> selectByExampleOrderByViewAndTime(InformationExample example);
 
+    List<Information> selectByExampleOrderByFav(InformationExample example);
+
+    List<Information> selectByUseridOrderByView(String userid);
+
+    List<Information> selectByUseridOrderByFav(String userid);
+
     Information selectByPrimaryKey(Integer id);
 
     Information selectByPrimaryKeyWithUserAndTypeInfo(Integer id);

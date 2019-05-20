@@ -30,11 +30,41 @@ public class ListController {
         List<Information> informationList = service.getInformationsByConditionOrderByTime();
         return informationList;
     }
+
     @RequestMapping(value = "/informationOrderByViewAndTime", method = RequestMethod.GET)
     @ResponseBody
     public List<Information> listInformationOrderByViewAndTime(HttpServletRequest request, Model model) {
         List<Information> informationList = service.getInformationsByConditionOrderByViewAndTime();
         return informationList;
     }
+
+    @RequestMapping(value = "/informationOrderByFavAndTime", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Information> listInformationOrderByFavAndTime(HttpServletRequest request, Model model) {
+        List<Information> informationList = service.getInformationsByConditionOrderByFavAndTime();
+        return informationList;
+    }
+
+    @RequestMapping(value = "/informationOnUserWithView/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Information> listInformationOnUserWithView(@PathVariable String id) {
+        List<Information> informationList = service.getInformationsByUseridOrderByView(id);
+        return informationList;
+    }
+
+    @RequestMapping(value = "/informationOnUserWithFav/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Information> listInformationOnUserWithFav(@PathVariable String id) {
+        List<Information> informationList = service.getInformationsByUseridOrderByFav(id);
+        return informationList;
+    }
+
+    @RequestMapping(value = "/informationGroupByTypeid/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Information> listInformationGroupByTypeid(@PathVariable Integer id) {
+        List<Information> informationList = service.getInformationsByConditionWithTypeid(id);
+        return informationList;
+    }
+
 
 }

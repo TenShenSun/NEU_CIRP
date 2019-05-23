@@ -186,3 +186,11 @@ http://tmp/wxd9921564024416e0.o6zAJsxauGRxccxhz-IOlMoWseh4.OjWvJKx2q7fE51efa06a3
 
 
 
+## 功能优化
+### Redis缓存实现
+未使用Redis之前1907ms
+使用Redis之后461ms
+
+>[参考链接](http://www.cnblogs.com/tplovejava/p/7161446.html)
+
+

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sun.dao.InformationMapper">
+    <cache type="com.sun.redis.RedisCache"/>
     <resultMap id="BaseResultMap" type="com.sun.model.Information">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
@@ -126,7 +127,7 @@
         </if>
     </select>
     <select id="selectByExampleWithUserAndTypeInfo" resultMap="BaseResultMapWithUserAndTypeInfo"
-            parameterType="com.sun.model.InformationExample">
+            parameterType="com.sun.model.InformationExample" useCache="true">
         select
         <if test="distinct">
             distinct
@@ -154,7 +155,7 @@
         order by createDate desc
     </select>
     <select id="selectByExampleOrderByViewAndTime" resultMap="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime"
-            parameterType="com.sun.model.InformationExample">
+            parameterType="com.sun.model.InformationExample" useCache="true">
 select
 i.id,i.user_id,i.type_id,i.location,i.topic,i.content,i.yn,i.ts,i.createDate,i.deleteDate,t.readNum
 from
@@ -192,7 +193,7 @@ i.id=t.info_id order by readNUm desc,createDate desc;
         where id = #{id,jdbcType=INTEGER}
     </select>
     <select id="selectByPrimaryKeyWithUserAndTypeInfo" resultMap="BaseResultMapWithUserAndTypeInfo"
-            parameterType="java.lang.Integer">
+            parameterType="java.lang.Integer" useCache="true">
         select
         <include refid="Base_Column_List"/>
         from information

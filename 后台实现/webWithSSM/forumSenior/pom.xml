@@ -179,7 +179,12 @@
             <artifactId>commons-codec</artifactId>
             <version>1.9</version>
         </dependency>
-
+<!-- CGLib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.2.5</version>
+        </dependency>
 
         <!-- httpclient -->
         <dependency>

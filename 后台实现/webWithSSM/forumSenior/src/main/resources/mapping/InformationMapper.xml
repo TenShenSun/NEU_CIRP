@@ -28,10 +28,26 @@
         <association property="typeInfo" column="type_id" select="com.sun.dao.TypeInfoMapper.selectByPrimaryKey"/>
     </resultMap>
 
-    <resultMap id="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime" type="com.sun.model.Information"
+    <!--<resultMap id="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime" type="com.sun.model.Information"
                extends="BaseResultMapWithUserAndTypeInfo">
         <result column="readNum" property="count" jdbcType="INTEGER"/>
+</resultMap>-->
+    <resultMap id="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime" type="com.sun.model.Information">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="type_id" property="typeId" jdbcType="INTEGER"/>
+        <result column="location" property="location" jdbcType="VARCHAR"/>
+        <result column="topic" property="topic" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="yn" property="yn" jdbcType="BIT"/>
+        <result column="ts" property="ts" jdbcType="TIMESTAMP"/>
+        <result column="createDate" property="createdate" jdbcType="TIMESTAMP"/>
+        <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP"/>
+        <result column="readNum" property="count" jdbcType="INTEGER"/>
+        <association property="user" column="user_id" select="com.sun.dao.UserMapper.selectByPrimaryKey"/>
+        <association property="typeInfo" column="type_id" select="com.sun.dao.TypeInfoMapper.selectByPrimaryKey"/>
     </resultMap>
+
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -135,7 +151,7 @@
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
-        order by createDate
+        order by createDate desc
     </select>
     <select id="selectByExampleOrderByViewAndTime" resultMap="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime"
             parameterType="com.sun.model.InformationExample">

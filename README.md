@@ -253,5 +253,10 @@ redis的缓存：可控制的后端缓存服务，通常用来缓存后端数据
 
 Q: mybatis有二级缓存，为什么还要用redis，原因是什么？
 
+Mybatis一级缓存作用域是session，session commit之后缓存就失效了
+
+Mybatis二级缓存作用域是sessionfactory，该缓存是以namespace为单位的（也就是一个Mapper.xml文件），不同namespace下的操作互不影响。所有对数据表的改变操作都会刷新缓存。但是一般不要用二级缓存，例如在UserMapper.xml中有大多数针对user表的操作。但是在另一个XXXMapper.xml中，还有针对user单表的操作。这会导致user在两个命名空间下的数据不一致。如果在UserMapper.xml中做了刷新缓存的操作，在XXXMapper.xml中缓存仍然有效，如果有针对user的单表查询，使用缓存的结果可能会不正确，读到脏数据。
+
+Redis比之一、二级缓存的好处很多，Redis可以搭建在其他服务器上，缓存容量可扩展。Redis可以灵活的使用在需要缓存的数据上，比如一些热点数据。
 ```
 

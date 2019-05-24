@@ -77,3 +77,37 @@ sqlMapConfig.xml
 
 可是采用本地数据测试还是：‘程序运行时间：1234ms’
 还是很长，这个问题待解决。
+
+## Q:java.lang.IllegalArgumentException: Could not resolve placeholder 'XXX' in string value "${XXX}";
+
+原因：多个配置文件都加载了placeholder冲突，解决办法，把多个配置文件合成一个
+
+> [参考](https://blog.csdn.net/qq_39056805/article/details/80586672 )
+
+## Q: spring-data-redis以及jedis版本问题
+
+Caused by: java.lang.NoSuchMethodError: org.springframework.core.serializer.support.DeserializingConverter.<init>(Ljava/lang/ClassLoader;)V 
+
+at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.<init>(JdkSerializationRedisSerializer.java:54)
+
+```xml
+<!-- 以下配置可用 -->
+<dependency>
+    <groupId>org.springframework.data</groupId>
+    <artifactId>spring-data-redis</artifactId>
+    <version>1.4.2.RELEASE</version>
+</dependency>
+
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+    <version>2.6.2</version>
+</dependency>
+
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-pool2</artifactId>
+    <version>2.4.2</version>
+</dependency>
+```
+

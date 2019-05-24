@@ -194,3 +194,16 @@ http://tmp/wxd9921564024416e0.o6zAJsxauGRxccxhz-IOlMoWseh4.OjWvJKx2q7fE51efa06a3
 >[参考链接](http://www.cnblogs.com/tplovejava/p/7161446.html)
 
 
+
+> [redis作为MyBatis的二级缓存](https://www.cnblogs.com/wojiaochuichui/p/7611030.html )
+
+```
+Q: mybaits缓存和redis缓存的区别
+mybatis的缓存：分为一级缓存和二级缓存，一级缓存的作用范围为session,所以当session commit或close后,缓存就会被清空 ，二级缓存的作用范围为sqlsessionfactory,映射语句文件中的所有select语句都会被缓存，所有CRUD的操作都会刷新缓存，缓存会存储1024个对象，缓存容易造成脏毒数据，影响真实数据的准确性，实际开发业务中会放弃二级缓存。
+
+redis的缓存：可控制的后端缓存服务，通常用来缓存后端数据，当程序第二次访问数据库的时候，命中redis，大大减少数据库的负担，减少访问数据库的链接时间，实际开发过程中都会采用这种缓存方式，达到访问速度和效率的解决方案。
+
+Q: mybatis有二级缓存，为什么还要用redis，原因是什么？
+
+```
+

@@ -22,6 +22,8 @@
         <!-- log4j日志文件管理包版本 -->
         <slf4j.version>1.7.7</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
+        <!-- pagehelper -->
+        <!--<pagehelper.version></pagehelper.version>-->
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -192,17 +194,43 @@
             <artifactId>commons-httpclient</artifactId>
             <version>3.1</version>
         </dependency>
-        <!-- redis客户端jar -->
+
+        <!--&lt;!&ndash; redis客户端jar &ndash;&gt;
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
+            &lt;!&ndash;<version>2.9.0</version>&ndash;&gt;
             <version>3.0.1</version>
         </dependency>
-        <!-- spring-redis实现 -->
+        &lt;!&ndash; spring-redis实现 &ndash;&gt;
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
             <version>1.8.10.RELEASE</version>
+        </dependency>
+        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 &ndash;&gt;
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.5.0</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.4.2.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.4.2</version>
         </dependency>
 
 
@@ -231,6 +259,17 @@
             <version>0.1.4</version>
             <scope>compile</scope>
         </dependency>
+
+
+        <!--分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.2</version>
+        </dependency>
+
+
+
 
     </dependencies>
 

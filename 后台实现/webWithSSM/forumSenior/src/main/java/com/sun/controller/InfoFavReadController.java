@@ -1,10 +1,7 @@
 package com.sun.controller;
 
 import com.sun.model.InfoFavRead;
-import com.sun.model.TypeInfo;
 import com.sun.service.InfoFavReadService;
-import com.sun.service.TypeInfoService;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

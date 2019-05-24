@@ -2,7 +2,7 @@ package com.sun.model;
 
 import java.io.Serializable;
 
-public class InfoFavRead implements Serializable {
+public class InfoFavRead {
     private String userId;
 
     private Integer infoId;

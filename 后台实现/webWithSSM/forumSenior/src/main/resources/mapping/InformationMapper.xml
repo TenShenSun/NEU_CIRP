@@ -1,54 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sun.dao.InformationMapper">
-    <cache type="com.sun.redis.RedisCache"/>
     <resultMap id="BaseResultMap" type="com.sun.model.Information">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="type_id" property="typeId" jdbcType="INTEGER"/>
         <result column="location" property="location" jdbcType="VARCHAR"/>
         <result column="topic" property="topic" jdbcType="VARCHAR"/>
+        <result column="is_anony" property="isAnony" jdbcType="BIT"/>
+        <result column="activity_time" property="activityTime" jdbcType="VARCHAR"/>
+        <result column="contact_id" property="contactId" jdbcType="VARCHAR"/>
+        <result column="phone_num" property="phoneNum" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="VARCHAR"/>
         <result column="yn" property="yn" jdbcType="BIT"/>
         <result column="ts" property="ts" jdbcType="TIMESTAMP"/>
         <result column="createDate" property="createdate" jdbcType="TIMESTAMP"/>
         <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <resultMap id="BaseResultMapWithUserAndTypeInfo" type="com.sun.model.Information">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
-        <result column="type_id" property="typeId" jdbcType="INTEGER"/>
-        <result column="location" property="location" jdbcType="VARCHAR"/>
-        <result column="topic" property="topic" jdbcType="VARCHAR"/>
-        <result column="content" property="content" jdbcType="VARCHAR"/>
-        <result column="yn" property="yn" jdbcType="BIT"/>
-        <result column="ts" property="ts" jdbcType="TIMESTAMP"/>
-        <result column="createDate" property="createdate" jdbcType="TIMESTAMP"/>
-        <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP"/>
+    <resultMap id="BaseResultMapWithUserAndTypeInfo" type="com.sun.model.Information"
+               extends="BaseResultMap">
         <association property="user" column="user_id" select="com.sun.dao.UserMapper.selectByPrimaryKey"/>
         <association property="typeInfo" column="type_id" select="com.sun.dao.TypeInfoMapper.selectByPrimaryKey"/>
     </resultMap>
-
-    <!--<resultMap id="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime" type="com.sun.model.Information"
+    <resultMap id="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime" type="com.sun.model.Information"
                extends="BaseResultMapWithUserAndTypeInfo">
         <result column="readNum" property="count" jdbcType="INTEGER"/>
-</resultMap>-->
-    <resultMap id="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime" type="com.sun.model.Information">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
-        <result column="type_id" property="typeId" jdbcType="INTEGER"/>
-        <result column="location" property="location" jdbcType="VARCHAR"/>
-        <result column="topic" property="topic" jdbcType="VARCHAR"/>
-        <result column="content" property="content" jdbcType="VARCHAR"/>
-        <result column="yn" property="yn" jdbcType="BIT"/>
-        <result column="ts" property="ts" jdbcType="TIMESTAMP"/>
-        <result column="createDate" property="createdate" jdbcType="TIMESTAMP"/>
-        <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP"/>
-        <result column="readNum" property="count" jdbcType="INTEGER"/>
-        <association property="user" column="user_id" select="com.sun.dao.UserMapper.selectByPrimaryKey"/>
-        <association property="typeInfo" column="type_id" select="com.sun.dao.TypeInfoMapper.selectByPrimaryKey"/>
     </resultMap>
-
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -110,7 +87,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    id, user_id, type_id, location, topic, content, yn, ts, createDate, deleteDate
+    id, user_id, type_id, location, topic, is_anony, activity_time, contact_id, phone_num, 
+    content, yn, ts, createDate, deleteDate
   </sql>
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sun.model.InformationExample">
         select
@@ -127,7 +105,7 @@
         </if>
     </select>
     <select id="selectByExampleWithUserAndTypeInfo" resultMap="BaseResultMapWithUserAndTypeInfo"
-            parameterType="com.sun.model.InformationExample" useCache="true">
+            parameterType="com.sun.model.InformationExample">
         select
         <if test="distinct">
             distinct
@@ -155,9 +133,10 @@
         order by createDate desc
     </select>
     <select id="selectByExampleOrderByViewAndTime" resultMap="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime"
-            parameterType="com.sun.model.InformationExample" useCache="true">
+            parameterType="com.sun.model.InformationExample">
 select
-i.id,i.user_id,i.type_id,i.location,i.topic,i.content,i.yn,i.ts,i.createDate,i.deleteDate,t.readNum
+i.id, i.user_id, i.type_id, i.location, i.topic, i.is_anony, i.activity_time, i.contact_id, i.phone_num,
+    i.content, i.yn, i.ts, i.createDate, i.deleteDate,t.readNum
 from
 information i
 ,(select info_id,count(*) as readNum from info_fav_read group by info_id) t
@@ -167,14 +146,14 @@ i.id=t.info_id order by readNUm desc,createDate desc;
     <select id="selectByExampleOrderByFav" resultMap="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime"
             parameterType="com.sun.model.InformationExample">
 select
-i.id,i.user_id,i.type_id,i.location,i.topic,i.content,i.yn,i.ts,i.createDate,i.deleteDate,t.readNum
+i.id, i.user_id, i.type_id, i.location, i.topic, i.is_anony, i.activity_time, i.contact_id, i.phone_num,
+    i.content, i.yn, i.ts, i.createDate, i.deleteDate,t.readNum
 from
 information i
 ,(select info_id,count(*) as readNum from info_fav_read where is_fav=1 group by info_id) t
 where
 i.id=t.info_id order by readNUm desc,createDate desc;
   </select>
-
     <select id="selectByUseridOrderByView" resultMap="BaseResultMapWithUserAndTypeInfo"
             parameterType="string">
         select * from information where id in
@@ -185,7 +164,6 @@ i.id=t.info_id order by readNUm desc,createDate desc;
         select * from information where id in
         (select info_id from info_fav_read where user_id=#{userid} and is_fav=1) order by createDate desc;
     </select>
-
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -193,13 +171,12 @@ i.id=t.info_id order by readNUm desc,createDate desc;
         where id = #{id,jdbcType=INTEGER}
     </select>
     <select id="selectByPrimaryKeyWithUserAndTypeInfo" resultMap="BaseResultMapWithUserAndTypeInfo"
-            parameterType="java.lang.Integer" useCache="true">
+            parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from information
         where id = #{id,jdbcType=INTEGER}
     </select>
-
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from information
     where id = #{id,jdbcType=INTEGER}
@@ -212,12 +189,14 @@ i.id=t.info_id order by readNUm desc,createDate desc;
     </delete>
     <insert id="insert" parameterType="com.sun.model.Information">
     insert into information (id, user_id, type_id, 
-      location, topic, content, 
-      yn, ts, createDate, 
+      location, topic, is_anony, 
+      activity_time, contact_id, phone_num, 
+      content, yn, ts, createDate, 
       deleteDate)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
-      #{location,jdbcType=VARCHAR}, #{topic,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{yn,jdbcType=BIT}, #{ts,jdbcType=TIMESTAMP}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{location,jdbcType=VARCHAR}, #{topic,jdbcType=VARCHAR}, #{isAnony,jdbcType=BIT}, 
+      #{activityTime,jdbcType=VARCHAR}, #{contactId,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR},
+      #{content,jdbcType=VARCHAR}, #{yn,jdbcType=BIT}, #{ts,jdbcType=TIMESTAMP}, #{createdate,jdbcType=TIMESTAMP}, 
       #{deletedate,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="com.sun.model.Information">
@@ -237,6 +216,18 @@ i.id=t.info_id order by readNUm desc,createDate desc;
             </if>
             <if test="topic != null">
                 topic,
+            </if>
+            <if test="isAnony != null">
+                is_anony,
+            </if>
+            <if test="activityTime != null">
+                activity_time,
+            </if>
+            <if test="contactId != null">
+                contact_id,
+            </if>
+            <if test="phoneNum != null">
+                phone_num,
             </if>
             <if test="content != null">
                 content,
@@ -269,6 +260,18 @@ i.id=t.info_id order by readNUm desc,createDate desc;
             </if>
             <if test="topic != null">
                 #{topic,jdbcType=VARCHAR},
+            </if>
+            <if test="isAnony != null">
+                #{isAnony,jdbcType=BIT},
+            </if>
+            <if test="activityTime != null">
+                #{activityTime,jdbcType=VARCHAR},
+            </if>
+            <if test="contactId != null">
+                #{contactId,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNum != null">
+                #{phoneNum,jdbcType=VARCHAR},
             </if>
             <if test="content != null">
                 #{content,jdbcType=VARCHAR},
@@ -311,6 +314,18 @@ i.id=t.info_id order by readNUm desc,createDate desc;
             <if test="record.topic != null">
                 topic = #{record.topic,jdbcType=VARCHAR},
             </if>
+            <if test="record.isAnony != null">
+                is_anony = #{record.isAnony,jdbcType=BIT},
+            </if>
+            <if test="record.activityTime != null">
+                activity_time = #{record.activityTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contactId != null">
+                contact_id = #{record.contactId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.phoneNum != null">
+                phone_num = #{record.phoneNum,jdbcType=VARCHAR},
+            </if>
             <if test="record.content != null">
                 content = #{record.content,jdbcType=VARCHAR},
             </if>
@@ -338,6 +353,10 @@ i.id=t.info_id order by readNUm desc,createDate desc;
         type_id = #{record.typeId,jdbcType=INTEGER},
         location = #{record.location,jdbcType=VARCHAR},
         topic = #{record.topic,jdbcType=VARCHAR},
+        is_anony = #{record.isAnony,jdbcType=BIT},
+        activity_time = #{record.activityTime,jdbcType=VARCHAR},
+        contact_id = #{record.contactId,jdbcType=VARCHAR},
+        phone_num = #{record.phoneNum,jdbcType=VARCHAR},
         content = #{record.content,jdbcType=VARCHAR},
         yn = #{record.yn,jdbcType=BIT},
         ts = #{record.ts,jdbcType=TIMESTAMP},
@@ -361,6 +380,18 @@ i.id=t.info_id order by readNUm desc,createDate desc;
             </if>
             <if test="topic != null">
                 topic = #{topic,jdbcType=VARCHAR},
+            </if>
+            <if test="isAnony != null">
+                is_anony = #{isAnony,jdbcType=BIT},
+            </if>
+            <if test="activityTime != null">
+                activity_time = #{activityTime,jdbcType=VARCHAR},
+            </if>
+            <if test="contactId != null">
+                contact_id = #{contactId,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNum != null">
+                phone_num = #{phoneNum,jdbcType=VARCHAR},
             </if>
             <if test="content != null">
                 content = #{content,jdbcType=VARCHAR},
@@ -386,6 +417,10 @@ i.id=t.info_id order by readNUm desc,createDate desc;
       type_id = #{typeId,jdbcType=INTEGER},
       location = #{location,jdbcType=VARCHAR},
       topic = #{topic,jdbcType=VARCHAR},
+      is_anony = #{isAnony,jdbcType=BIT},
+      activity_time = #{activityTime,jdbcType=VARCHAR},
+      contact_id = #{contactId,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       yn = #{yn,jdbcType=BIT},
       ts = #{ts,jdbcType=TIMESTAMP},

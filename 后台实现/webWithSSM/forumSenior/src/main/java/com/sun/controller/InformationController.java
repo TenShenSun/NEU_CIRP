@@ -1,6 +1,5 @@
 package com.sun.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.sun.model.Information;
 import com.sun.service.InformationService;
 import org.slf4j.Logger;
@@ -8,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
 

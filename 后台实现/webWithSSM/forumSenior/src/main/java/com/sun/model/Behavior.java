@@ -3,7 +3,7 @@ package com.sun.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Behavior implements Serializable {
+public class Behavior {
     private String userId;
 
     private Date timestamp;

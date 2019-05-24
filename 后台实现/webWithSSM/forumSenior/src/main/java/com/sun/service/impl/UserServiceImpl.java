@@ -1,7 +1,6 @@
 package com.sun.service.impl;
 
 
-import com.github.pagehelper.PageHelper;
 import com.sun.dao.UserMapper;
 import com.sun.model.User;
 import com.sun.model.UserExample;
@@ -24,15 +23,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(String id) {
-
-
         return userMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public List<User> getUsersByCondition(UserExample example,int pageNum,int pageSize) {
-
-        PageHelper.startPage(pageNum,pageSize);
+    public List<User> getUsersByCondition(UserExample example) {
         return userMapper.selectByExample(example);
     }
 

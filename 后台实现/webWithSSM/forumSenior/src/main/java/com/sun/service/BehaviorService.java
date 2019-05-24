@@ -3,7 +3,6 @@ package com.sun.service;
 
 import com.sun.model.Behavior;
 import com.sun.model.BehaviorExample;
-import com.sun.model.Information;
 
 import java.util.Date;
 import java.util.List;

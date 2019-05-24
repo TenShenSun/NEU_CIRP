@@ -11,7 +11,7 @@ public interface UserService {
 
     public User getUserById(String id);
 
-    public List<User> getUsersByCondition(UserExample example,int pageNum,int pageSize);
+    public List<User> getUsersByCondition(UserExample example);
 
     public int putUser(User user);
 

@@ -8,13 +8,13 @@
     <result column="is_read" property="isRead" jdbcType="BIT" />
   </resultMap>
   <resultMap id="BaseResultMapWithUserAndInformation" type="com.sun.model.InfoFavRead" >
-  <id column="user_id" property="userId" jdbcType="VARCHAR" />
-  <id column="info_id" property="infoId" jdbcType="INTEGER" />
-  <result column="is_fav" property="isFav" jdbcType="BIT" />
-  <result column="is_read" property="isRead" jdbcType="BIT" />
-  <association property="user" column="user_id" select="com.sun.dao.UserMapper.selectByPrimaryKey"/>
-  <association property="information" column="info_id" select="com.sun.dao.InformationMapper.selectByPrimaryKey"/>
-</resultMap>
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <id column="info_id" property="infoId" jdbcType="INTEGER" />
+    <result column="is_fav" property="isFav" jdbcType="BIT" />
+    <result column="is_read" property="isRead" jdbcType="BIT" />
+    <association property="user" column="user_id" select="com.sun.dao.UserMapper.selectByPrimaryKey"/>
+    <association property="information" column="info_id" select="com.sun.dao.InformationMapper.selectByPrimaryKey"/>
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -106,11 +106,11 @@
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from info_fav_read
     where user_id = #{userId,jdbcType=VARCHAR}
-      and info_id = #{infoId,jdbcType=INTEGER}
+    and info_id = #{infoId,jdbcType=INTEGER}
   </select>
   <select id="selectByPrimaryKeyWithUserAndInformation" resultMap="BaseResultMapWithUserAndInformation" parameterType="map" >
     select
@@ -197,9 +197,9 @@
   <update id="updateByExample" parameterType="map" >
     update info_fav_read
     set user_id = #{record.userId,jdbcType=VARCHAR},
-      info_id = #{record.infoId,jdbcType=INTEGER},
-      is_fav = #{record.isFav,jdbcType=BIT},
-      is_read = #{record.isRead,jdbcType=BIT}
+    info_id = #{record.infoId,jdbcType=INTEGER},
+    is_fav = #{record.isFav,jdbcType=BIT},
+    is_read = #{record.isRead,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -215,7 +215,7 @@
       </if>
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
-      and info_id = #{infoId,jdbcType=INTEGER}
+    and info_id = #{infoId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sun.model.InfoFavRead" >
     update info_fav_read

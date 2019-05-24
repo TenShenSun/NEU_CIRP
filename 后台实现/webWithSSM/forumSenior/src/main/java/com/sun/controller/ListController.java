@@ -1,9 +1,7 @@
 package com.sun.controller;
 
 import com.sun.model.Information;
-import com.sun.model.TypeInfo;
 import com.sun.service.InformationService;
-import com.sun.service.TypeInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

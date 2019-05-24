@@ -16,7 +16,12 @@ public class InfoFavReadServiceImpl implements InfoFavReadService {
 
     @Override
     public int postInfoFavRead(InfoFavRead infoFavRead) {
-        return mapper.insertSelective(infoFavRead);
+        InfoFavRead infoFavRead1=mapper.selectByPrimaryKey(infoFavRead.getUserId(),infoFavRead.getInfoId());
+        if (infoFavRead1==null){
+            return mapper.insertSelective(infoFavRead);
+        }else {
+            return 0;
+        }
     }
 
     @Override

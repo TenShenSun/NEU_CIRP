@@ -77,7 +77,7 @@ content-type:application/json
 
 ### mybatis插件分页实现
 
-> [github地址](https://github.com/pagehelper/Mybatis-PageHelper )
+> [pageHelper github地址](https://github.com/pagehelper/Mybatis-PageHelper )
 
 ### 通用Mapper
 
@@ -100,6 +100,54 @@ content-type:application/json
 - 客户端：执行业务处理的入口
 
 
+
+实践：通过pageHelper实现分页
+
+```xml
+1. pom.xml添加依赖
+
+<!--分页插件-->
+<dependency>
+    <groupId>com.github.pagehelper</groupId>
+    <artifactId>pagehelper</artifactId>
+    <version>5.1.2</version>
+</dependency>
+
+2. 配置spring-mybatis.xml文件
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 自动扫描mapping.xml文件 -->
+        <!--<property name="mapperLocations" value="classpath:mapping/*.xml"></property>-->
+        <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+
+        <property name="plugins">
+            <array>
+                <!-- 分页拦截器 -->
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+                    <property name="properties">
+                        <value>
+                            helperDialect=mysql
+                            reasonable=true
+                            supportMethodsArguments=true
+                            params=count=countSql
+                            autoRuntimeDialect=true
+                        </value>
+                    </property>
+                </bean>
+                <!-- 打印日志拦截器 -->
+                <bean class="com.sun.interceptor.MybatisInterceptor"></bean>
+            </array>
+        </property>
+</bean>
+
+3. 在想要分页的serviceImpl调用mapper的语句前加入分页
+@Override
+public List<User> getUsersByCondition(UserExample example,int pageNum,int pageSize) {
+	PageHelper.startPage(pageNum,pageSize);
+	return userMapper.selectByExample(example);
+}
+```
 
 
 

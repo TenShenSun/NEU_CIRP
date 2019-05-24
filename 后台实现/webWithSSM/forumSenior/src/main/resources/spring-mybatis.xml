@@ -19,6 +19,10 @@
     </bean>
 
 
+
+
+
+
     <!-- 数据库数据源的相关配置 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
@@ -44,6 +48,27 @@
         <!-- 自动扫描mapping.xml文件 -->
         <!--<property name="mapperLocations" value="classpath:mapping/*.xml"></property>-->
         <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+
+        <property name="plugins">
+            <array>
+                <!-- 分页拦截器 -->
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+                    <property name="properties">
+                        <value>
+                            helperDialect=mysql
+                            reasonable=true
+                            supportMethodsArguments=true
+                            params=count=countSql
+                            autoRuntimeDialect=true
+                        </value>
+                    </property>
+                </bean>
+
+                <!-- 打印日志拦截器 -->
+                <bean class="com.sun.interceptor.MybatisInterceptor"></bean>
+            </array>
+        </property>
         
     </bean>
 

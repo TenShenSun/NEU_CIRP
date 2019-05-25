@@ -37,6 +37,8 @@ public class Information {
 
     private Integer count;
 
+    private String picUrl;
+
     public Integer getId() {
         return id;
     }
@@ -171,5 +173,13 @@ public class Information {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 }

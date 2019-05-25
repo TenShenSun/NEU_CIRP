@@ -16,6 +16,7 @@
         <result column="ts" property="ts" jdbcType="TIMESTAMP"/>
         <result column="createDate" property="createdate" jdbcType="TIMESTAMP"/>
         <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP"/>
+        <result column="pic_url" property="picUrl" jdbcType="VARCHAR"/>
     </resultMap>
     <resultMap id="BaseResultMapWithUserAndTypeInfo" type="com.sun.model.Information"
                extends="BaseResultMap">
@@ -88,7 +89,7 @@
     </sql>
     <sql id="Base_Column_List">
     id, user_id, type_id, location, topic, is_anony, activity_time, contact_id, phone_num, 
-    content, yn, ts, createDate, deleteDate
+    content, yn, ts, createDate, deleteDate,pic_url
   </sql>
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sun.model.InformationExample">
         select
@@ -136,7 +137,7 @@
             parameterType="com.sun.model.InformationExample">
 select
 i.id, i.user_id, i.type_id, i.location, i.topic, i.is_anony, i.activity_time, i.contact_id, i.phone_num,
-    i.content, i.yn, i.ts, i.createDate, i.deleteDate,t.readNum
+    i.content, i.yn, i.ts, i.createDate, i.deleteDate,i.pic_url,t.readNum
 from
 information i
 ,(select info_id,count(*) as readNum from info_fav_read group by info_id) t
@@ -147,7 +148,7 @@ i.id=t.info_id order by readNUm desc,createDate desc
             parameterType="com.sun.model.InformationExample">
 select
 i.id, i.user_id, i.type_id, i.location, i.topic, i.is_anony, i.activity_time, i.contact_id, i.phone_num,
-    i.content, i.yn, i.ts, i.createDate, i.deleteDate,t.readNum
+    i.content, i.yn, i.ts, i.createDate, i.deleteDate,i.pic_url,t.readNum
 from
 information i
 ,(select info_id,count(*) as readNum from info_fav_read where is_fav=1 group by info_id) t
@@ -192,12 +193,12 @@ i.id=t.info_id order by readNUm desc,createDate desc;
       location, topic, is_anony, 
       activity_time, contact_id, phone_num, 
       content, yn, ts, createDate, 
-      deleteDate)
+      deleteDate,pic_url)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
       #{location,jdbcType=VARCHAR}, #{topic,jdbcType=VARCHAR}, #{isAnony,jdbcType=BIT}, 
       #{activityTime,jdbcType=VARCHAR}, #{contactId,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR},
       #{content,jdbcType=VARCHAR}, #{yn,jdbcType=BIT}, #{ts,jdbcType=TIMESTAMP}, #{createdate,jdbcType=TIMESTAMP}, 
-      #{deletedate,jdbcType=TIMESTAMP})
+      #{deletedate,jdbcType=TIMESTAMP},#{pic_url,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.sun.model.Information">
         insert into information
@@ -244,6 +245,9 @@ i.id=t.info_id order by readNUm desc,createDate desc;
             <if test="deletedate != null">
                 deleteDate,
             </if>
+            <if test="picUrl != null">
+                pic_url,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -287,6 +291,9 @@ i.id=t.info_id order by readNUm desc,createDate desc;
             </if>
             <if test="deletedate != null">
                 #{deletedate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="picUrl != null">
+                #{picUrl,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
@@ -341,6 +348,9 @@ i.id=t.info_id order by readNUm desc,createDate desc;
             <if test="record.deletedate != null">
                 deleteDate = #{record.deletedate,jdbcType=TIMESTAMP},
             </if>
+            <if test="record.picUrl != null">
+                pic_url = #{record.picUrl,jdbcType=TIMESTAMP},
+            </if>
         </set>
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -361,7 +371,8 @@ i.id=t.info_id order by readNUm desc,createDate desc;
         yn = #{record.yn,jdbcType=BIT},
         ts = #{record.ts,jdbcType=TIMESTAMP},
         createDate = #{record.createdate,jdbcType=TIMESTAMP},
-        deleteDate = #{record.deletedate,jdbcType=TIMESTAMP}
+        deleteDate = #{record.deletedate,jdbcType=TIMESTAMP},
+        pic_url = #{record.picUrl,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
@@ -408,6 +419,9 @@ i.id=t.info_id order by readNUm desc,createDate desc;
             <if test="deletedate != null">
                 deleteDate = #{deletedate,jdbcType=TIMESTAMP},
             </if>
+            <if test="picUrl != null">
+                pic_url = #{picUrl,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -425,7 +439,8 @@ i.id=t.info_id order by readNUm desc,createDate desc;
       yn = #{yn,jdbcType=BIT},
       ts = #{ts,jdbcType=TIMESTAMP},
       createDate = #{createdate,jdbcType=TIMESTAMP},
-      deleteDate = #{deletedate,jdbcType=TIMESTAMP}
+      deleteDate = #{deletedate,jdbcType=TIMESTAMP},
+      pic_url = #{picUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

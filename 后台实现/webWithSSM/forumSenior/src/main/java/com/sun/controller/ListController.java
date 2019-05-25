@@ -36,6 +36,13 @@ public class ListController {
         return informationList;
     }
 
+    @RequestMapping(value = "/informationOrderByViewAndTimeByPage/{pageNum}/{pageSize}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Information> listInformationOrderByViewAndTimeByPage(HttpServletRequest request, Model model,@PathVariable int pageNum,@PathVariable int pageSize) {
+        List<Information> informationList = service.getInformationsByConditionOrderByViewAndTimeByPage(pageNum,pageSize);
+        return informationList;
+    }
+
     @RequestMapping(value = "/informationOrderByFavAndTime", method = RequestMethod.GET)
     @ResponseBody
     public List<Information> listInformationOrderByFavAndTime(HttpServletRequest request, Model model) {

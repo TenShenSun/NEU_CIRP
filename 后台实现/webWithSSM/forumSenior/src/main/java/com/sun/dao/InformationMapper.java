@@ -24,6 +24,8 @@ public interface InformationMapper {
 
     List<Information> selectByExampleOrderByViewAndTime(InformationExample example);
 
+    List<Information> selectByExampleOrderByViewAndTimeByPage(InformationExample example,int pageNum,int pageSize);
+
     List<Information> selectByExampleOrderByFav(InformationExample example);
 
     List<Information> selectByUseridOrderByView(String userid);

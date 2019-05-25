@@ -22,6 +22,8 @@ public interface InformationService {
 
     public List<Information> getInformationsByConditionOrderByViewAndTime();
 
+    List<Information> getInformationsByConditionOrderByViewAndTimeByPage(int pageNum, int pageSize);
+
     public List<Information> getInformationsByConditionOrderByFavAndTime();
 
     public List<Information> getInformationsByUseridOrderByView(String userid);
@@ -31,5 +33,6 @@ public interface InformationService {
     public int putInformation(Information information);
 
     public int deleteInformation(Integer id);
+
 
 }

@@ -3,6 +3,7 @@ package com.sun.controller;
 // slf4j.Logger
 
 import com.sun.model.User;
+import com.sun.model.UserExample;
 import com.sun.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 
 @Controller
@@ -34,7 +36,7 @@ public class UserController {
     //OK
     @RequestMapping(value = "/user/{pageNum}/{pageSize}", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> selectAllUser(@PathVariable int pageNum,@PathVariable int pageSize) {
+    public List<User> selectAllUser(@PathVariable int pageNum, @PathVariable int pageSize) {
         UserExample userExample = new UserExample();
         List<User> userList = userService.getUsersByCondition(userExample,pageNum,pageSize);
         return userList;

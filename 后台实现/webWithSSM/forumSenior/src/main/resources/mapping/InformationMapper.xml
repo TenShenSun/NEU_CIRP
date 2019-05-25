@@ -16,6 +16,7 @@
         <result column="ts" property="ts" jdbcType="TIMESTAMP"/>
         <result column="createDate" property="createdate" jdbcType="TIMESTAMP"/>
         <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP"/>
+        <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP"/>
     </resultMap>
     <resultMap id="BaseResultMapWithUserAndTypeInfo" type="com.sun.model.Information"
                extends="BaseResultMap">
@@ -141,7 +142,7 @@ from
 information i
 ,(select info_id,count(*) as readNum from info_fav_read group by info_id) t
 where
-i.id=t.info_id order by readNUm desc,createDate desc;
+i.id=t.info_id order by readNUm desc,createDate desc
   </select>
     <select id="selectByExampleOrderByFav" resultMap="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime"
             parameterType="com.sun.model.InformationExample">

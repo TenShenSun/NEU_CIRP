@@ -1,6 +1,7 @@
 package com.sun.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
 import com.sun.dao.UserMapper;
 import com.sun.model.User;
 import com.sun.model.UserExample;
@@ -27,7 +28,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsersByCondition(UserExample example) {
+    public List<User> getUsersByCondition(UserExample example,int pageNum,int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return userMapper.selectByExample(example);
     }
 

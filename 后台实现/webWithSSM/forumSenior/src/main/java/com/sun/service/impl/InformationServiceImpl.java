@@ -1,5 +1,6 @@
 package com.sun.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.sun.dao.InformationMapper;
 import com.sun.model.Information;
 import com.sun.model.InformationExample;
@@ -57,6 +58,13 @@ public class InformationServiceImpl implements InformationService {
     @Override
     public List<Information> getInformationsByConditionOrderByViewAndTime() {
         InformationExample example=new InformationExample();
+        return mapper.selectByExampleOrderByViewAndTime(example);
+    }
+
+    @Override
+    public List<Information> getInformationsByConditionOrderByViewAndTimeByPage(int pageNum,int pageSize) {
+        InformationExample example=new InformationExample();
+        PageHelper.startPage(pageNum,pageSize);
         return mapper.selectByExampleOrderByViewAndTime(example);
     }
 

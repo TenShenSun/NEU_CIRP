@@ -16,7 +16,6 @@
         <result column="ts" property="ts" jdbcType="TIMESTAMP"/>
         <result column="createDate" property="createdate" jdbcType="TIMESTAMP"/>
         <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP"/>
-        <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP"/>
     </resultMap>
     <resultMap id="BaseResultMapWithUserAndTypeInfo" type="com.sun.model.Information"
                extends="BaseResultMap">

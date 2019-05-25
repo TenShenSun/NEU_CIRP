@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.sun.model.Comment" >
+    <id column="comment_id" property="commentId" jdbcType="INTEGER" />
+    <result column="p_comment_id" property="pCommentId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="info_id" property="infoId" jdbcType="INTEGER" />
+    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="yn" property="yn" jdbcType="BIT" />
+    <result column="updateDate" property="updatedate" jdbcType="TIMESTAMP" />
+    <result column="extensive1" property="extensive1" jdbcType="VARCHAR" />
+    <result column="extensive2" property="extensive2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    comment_id, p_comment_id, user_id, info_id, createDate, content, yn, updateDate, 
+    extensive1, extensive2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sun.model.CommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sun.model.CommentExample" >
+    delete from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sun.model.Comment" >
+    insert into comment (comment_id, p_comment_id, user_id, 
+      info_id, createDate, content, 
+      yn, updateDate, extensive1, 
+      extensive2)
+    values (#{commentId,jdbcType=INTEGER}, #{pCommentId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{infoId,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}, 
+      #{yn,jdbcType=BIT}, #{updatedate,jdbcType=TIMESTAMP}, #{extensive1,jdbcType=VARCHAR}, 
+      #{extensive2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sun.model.Comment" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="pCommentId != null" >
+        p_comment_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="infoId != null" >
+        info_id,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="yn != null" >
+        yn,
+      </if>
+      <if test="updatedate != null" >
+        updateDate,
+      </if>
+      <if test="extensive1 != null" >
+        extensive1,
+      </if>
+      <if test="extensive2 != null" >
+        extensive2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="pCommentId != null" >
+        #{pCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="infoId != null" >
+        #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="yn != null" >
+        #{yn,jdbcType=BIT},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extensive1 != null" >
+        #{extensive1,jdbcType=VARCHAR},
+      </if>
+      <if test="extensive2 != null" >
+        #{extensive2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sun.model.CommentExample" resultType="java.lang.Integer" >
+    select count(*) from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update comment
+    <set >
+      <if test="record.commentId != null" >
+        comment_id = #{record.commentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pCommentId != null" >
+        p_comment_id = #{record.pCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoId != null" >
+        info_id = #{record.infoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yn != null" >
+        yn = #{record.yn,jdbcType=BIT},
+      </if>
+      <if test="record.updatedate != null" >
+        updateDate = #{record.updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.extensive1 != null" >
+        extensive1 = #{record.extensive1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extensive2 != null" >
+        extensive2 = #{record.extensive2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update comment
+    set comment_id = #{record.commentId,jdbcType=INTEGER},
+      p_comment_id = #{record.pCommentId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      info_id = #{record.infoId,jdbcType=INTEGER},
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=VARCHAR},
+      yn = #{record.yn,jdbcType=BIT},
+      updateDate = #{record.updatedate,jdbcType=TIMESTAMP},
+      extensive1 = #{record.extensive1,jdbcType=VARCHAR},
+      extensive2 = #{record.extensive2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sun.model.Comment" >
+    update comment
+    <set >
+      <if test="pCommentId != null" >
+        p_comment_id = #{pCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="infoId != null" >
+        info_id = #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="yn != null" >
+        yn = #{yn,jdbcType=BIT},
+      </if>
+      <if test="updatedate != null" >
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extensive1 != null" >
+        extensive1 = #{extensive1,jdbcType=VARCHAR},
+      </if>
+      <if test="extensive2 != null" >
+        extensive2 = #{extensive2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sun.model.Comment" >
+    update comment
+    set p_comment_id = #{pCommentId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      info_id = #{infoId,jdbcType=INTEGER},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR},
+      yn = #{yn,jdbcType=BIT},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      extensive1 = #{extensive1,jdbcType=VARCHAR},
+      extensive2 = #{extensive2,jdbcType=VARCHAR}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+</mapper>

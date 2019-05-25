@@ -110,4 +110,5 @@ at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.<in
     <version>2.4.2</version>
 </dependency>
 ```
-
+## Q:在information表中，有图片url字段和content内容字段，将图片url字段设置长度为10000后，尝试将content长度也设置为10000，报错。
+> [mysql存储最大字段数，长度含义](https://blog.csdn.net/tiansan/article/details/78771358)

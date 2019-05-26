@@ -1,0 +1,42 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #fff;
+  font-size: 12pt;
+}
+
+.page__hd {
+  background: #49A86E;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+/* .page__bd {
+  padding: 10px;
+} */
+
+.list .weui-cell {
+  padding: 10px !important
+}
+
+.list view {
+  font-size: 12pt;
+}
+/* .weui-cells:after,
+.weui-cells:before {
+  border: none;
+}
+.weui-cells {
+  border-radius: 10px;
+} */

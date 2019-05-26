@@ -261,3 +261,13 @@ Redis比之一、二级缓存的好处很多，Redis可以搭建在其他服务�
 ```
 
 >[Java操作Redis的两种方式](https://www.cnblogs.com/fengzheng/p/5941953.html)
+
+
+
+## Git
+
+git status # 查看add的文件
+
+git reset HEAD # 撤销add的所有文件
+
+git reset HEAD XXX # 撤销add的XXX文件

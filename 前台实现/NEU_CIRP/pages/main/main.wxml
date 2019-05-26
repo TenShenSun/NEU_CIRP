@@ -1,0 +1,70 @@
+<view class="page">
+  <view class="page__hd">
+    <block>
+      <van-notice-bar mode="link" text="[今日头条] {{headLineNews.topic}} {{headLineNews.content}}" color="#49A86E" backgroundColor="#ABC7B8" left-icon="volume-o" bindtap="bindViewTap" data-id='{{headLineNews.id}}'/>
+    </block>
+    <view class="hd-swiper">
+      <swiper autoplay="true" circular="true" interval="5000" duration="500">
+        <block wx:for="{{swiperImage}}" wx:key="*this">
+          <swiper-item>
+            <image src="{{item}}" mode="scaleToFill" ></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+  <view class="page__bd">
+    <view class="info-types">
+      <van-col wx:for="{{infoTypes}}" wx:key="index" custom-class="col" span="6">
+        <view class="info-type-button" bindtap="clickType" data-id='{{item.id}}' data-label='{{item.label}}'>
+          <van-icon name="{{ item.iconName }}" size="32px" custom-class="icon" />
+          <view class="text">{{ item.label }}</view>
+        </view>
+      </van-col>
+    </view>
+    <view>
+      <van-cell center title="最新消息" />
+    </view>
+    <view class="news-list">
+      <block wx:for="{{newsList}}" wx:key="{{item.id}}">
+        <view class="weui-panel" bindtap="bindViewTap" data-id='{{item.id}}'>
+          <view class="weui-panel__bd">
+            <van-cell center size="large" title="{{item.user.username}}" icon="{{item.user.avatarUrl}}" title-class="user-name">
+              <view slot="">
+                <van-tag color="#f2826a" plain size="large">{{item.typeInfo.name}}</van-tag>
+              </view>
+            </van-cell>
+            <view class="weui-media-box">
+              <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text">
+                  {{item.topic}}
+                </view>
+                <view class="weui-media-box__desc">{{item.content}}</view>
+                <view class="image-box" wx:if="item.picUrl">
+                  <van-row gutter="10">
+                    <block wx:for="{{item.picUrl}}" wx:key="index">
+                      <van-col span="8">
+                        <image mode="aspectFill" src="{{item}}" />
+                      </van-col>
+                    </block>
+                  </van-row>
+                </view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta">{{item.createdate}}</view>
+                  <view class="weui-media-box__info__meta">浏览</view>
+                  <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+                    {{item.readCount}}
+                  </view>
+                  <view class="weui-media-box__info__meta">收藏</view>
+                  <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+                    {{item.favCount}}
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

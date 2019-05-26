@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/main/main",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/publish/publish",
+    "pages/publish/msg_fail",
+    "pages/publish/msg_success",
+    "pages/newsList/newsList",
+    "pages/newsDetail/newsDetail",
+    "pages/about/about"
+  ],
+  "tabBar": {
+    "list": [
+      {
+        "text": "主页",
+        "pagePath": "pages/main/main",
+        "iconPath": "images/icons/main.png",
+        "selectedIconPath": "images/icons/main-selected.png"
+      },
+      {
+        "text": "发布",
+        "pagePath": "pages/publish/publish",
+        "iconPath": "images/icons/add.png",
+        "selectedIconPath": "images/icons/add-selected.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/index/index",
+        "iconPath": "images/icons/me.png",
+        "selectedIconPath": "images/icons/me-selected.png"
+      }
+    ],
+    "color": "#bfbfbf",
+    "selectedColor": "#49A86E"
+  },
+  "window": {
+    "navigationBarBackgroundColor": "#49A86E",
+    "navigationBarTitleText": "东大小喇叭",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F0F1F1"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-button": "/miniprogram_npm/vant-weapp/button/index",
+    "van-notice-bar": "/miniprogram_npm/vant-weapp/notice-bar/index",
+    "van-icon": "/miniprogram_npm/vant-weapp/icon/index",
+    "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
+    "van-cell-group": "/miniprogram_npm/vant-weapp/cell-group/index",
+    "van-tag": "/miniprogram_npm/vant-weapp/tag/index",
+    "van-row": "/miniprogram_npm/vant-weapp/row/index",
+    "van-col": "/miniprogram_npm/vant-weapp/col/index",
+    "van-field": "/miniprogram_npm/vant-weapp/field/index"
+  }
+}

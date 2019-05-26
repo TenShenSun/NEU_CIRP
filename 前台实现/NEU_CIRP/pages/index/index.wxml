@@ -1,0 +1,33 @@
+<!-- index.wxml -->
+<!-- <view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      获取头像昵称
+    </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+</view> -->
+<view class="page">
+  <view class="page__hd">
+    <view class="userinfo">
+      <!-- <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+        登录
+      </button>
+      <block wx:else> -->
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      <!-- </block> -->
+    </view>
+  </view>
+  <view class="page__bd">
+    <block>
+      <van-cell size="large" title="发布记录" icon="records" is-link url="/pages/newsList/newsList?label=发布记录" />
+      <van-cell size="large" title="浏览历史" icon="underway-o" is-link url="/pages/newsList/newsList?label=浏览历史" />
+      <van-cell size="large" title="我的收藏" icon="star-o" is-link url="/pages/newsList/newsList?label=我的收藏" />
+      <van-cell size="large" title="关于我们" icon="info-o" is-link url="/pages/about/about" />
+    </block>
+  </view>
+</view>

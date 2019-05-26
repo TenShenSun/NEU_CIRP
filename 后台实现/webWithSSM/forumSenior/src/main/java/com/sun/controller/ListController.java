@@ -21,7 +21,7 @@ public class ListController {
     @Autowired
     private InformationService service;
 
-
+    //OK
     @RequestMapping(value = "/informationOrderByTime", method = RequestMethod.GET)
     @ResponseBody
     public List<Information> listInformationOrderByTime(HttpServletRequest request, Model model) {
@@ -29,6 +29,7 @@ public class ListController {
         return informationList;
     }
 
+    //OK
     @RequestMapping(value = "/informationOrderByViewAndTime", method = RequestMethod.GET)
     @ResponseBody
     public List<Information> listInformationOrderByViewAndTime(HttpServletRequest request, Model model) {
@@ -36,27 +37,29 @@ public class ListController {
         return informationList;
     }
 
+    //OK
     @RequestMapping(value = "/informationOrderByViewAndTimeByPage/{pageNum}/{pageSize}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Information> listInformationOrderByViewAndTimeByPage(HttpServletRequest request, Model model,@PathVariable int pageNum,@PathVariable int pageSize) {
-        List<Information> informationList = service.getInformationsByConditionOrderByViewAndTimeByPage(pageNum,pageSize);
+    public List<Information> listInformationOrderByViewAndTimeByPage(HttpServletRequest request, Model model, @PathVariable int pageNum, @PathVariable int pageSize) {
+        List<Information> informationList = service.getInformationsByConditionOrderByViewAndTimeByPage(pageNum, pageSize);
         return informationList;
     }
 
+    //OK
     @RequestMapping(value = "/informationOrderByFavAndTime", method = RequestMethod.GET)
     @ResponseBody
     public List<Information> listInformationOrderByFavAndTime(HttpServletRequest request, Model model) {
         List<Information> informationList = service.getInformationsByConditionOrderByFavAndTime();
         return informationList;
     }
-
+// OK
     @RequestMapping(value = "/informationOnUserWithView/{id}", method = RequestMethod.GET)
     @ResponseBody
     public List<Information> listInformationOnUserWithView(@PathVariable String id) {
         List<Information> informationList = service.getInformationsByUseridOrderByView(id);
         return informationList;
     }
-
+// OK
     @RequestMapping(value = "/informationOnUserWithFav/{id}", method = RequestMethod.GET)
     @ResponseBody
     public List<Information> listInformationOnUserWithFav(@PathVariable String id) {

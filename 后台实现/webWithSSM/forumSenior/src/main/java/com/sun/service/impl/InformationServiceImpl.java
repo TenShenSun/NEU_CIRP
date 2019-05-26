@@ -37,11 +37,7 @@ public class InformationServiceImpl implements InformationService {
 
     @Override
     public List<Information> getInformationsByConditionWithTypeid(Integer typeid) {
-        InformationExample example = new InformationExample();
-        InformationExample.Criteria criteria = example.createCriteria();
-        criteria.andTypeIdEqualTo(typeid);
-        List<Information> list = mapper.selectByExampleWithUserAndTypeInfo(example);
-        return list;
+        return mapper.selectByTypeid(typeid);
     }
 
     @Override

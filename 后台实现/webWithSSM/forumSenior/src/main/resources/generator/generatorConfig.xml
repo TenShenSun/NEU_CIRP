@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!-- 数据库驱动:选择你的本地硬盘上面的数据库驱动包-->
-    <classPathEntry location="C:\Users\Warsong\Desktop\mysql-connector-java-5.1.25-bin.jar"/>
+    <classPathEntry location="C:\Users\Warsong\Desktop\forum-master\webWithSSM\forumSenior\src\main\resources\mysql-connector-java-5.1.25.jar"/>
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <commentGenerator>
             <property name="suppressDate" value="true"/>
@@ -34,8 +34,6 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="user" domainObjectName="User"></table>
-        <table tableName="information" domainObjectName="Information"></table>
-        <table tableName="type_info" domainObjectName="TypeInfo"></table>
+        <table tableName="comment" domainObjectName="Comment"></table>
     </context>
 </generatorConfiguration>

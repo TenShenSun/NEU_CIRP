@@ -32,6 +32,8 @@ public interface InformationMapper {
 
     List<Information> selectByUseridOrderByFav(String userid);
 
+    List<Information> selectByTypeid(Integer typeid);
+
     Information selectByPrimaryKey(Integer id);
 
     Information selectByPrimaryKeyWithUserAndTypeInfo(Integer id);

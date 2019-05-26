@@ -66,7 +66,7 @@ public class InformationMapperTest {
         for (Information i : list
         ) {
             System.out.println(i.getId());
-            System.out.println(i.getCount());
+//            System.out.println(i.getCount());
             System.out.println(i.getUser().getUsername());
             System.out.println(i.getTypeInfo().getName());
         }

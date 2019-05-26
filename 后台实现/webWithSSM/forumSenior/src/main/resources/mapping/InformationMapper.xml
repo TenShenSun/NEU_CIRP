@@ -17,15 +17,13 @@
         <result column="createDate" property="createdate" jdbcType="TIMESTAMP"/>
         <result column="deleteDate" property="deletedate" jdbcType="TIMESTAMP"/>
         <result column="pic_url" property="picUrl" jdbcType="VARCHAR"/>
+        <result column="readNum" property="readCount" jdbcType="INTEGER"/>
+        <result column="favNum" property="favCount" jdbcType="INTEGER"/>
     </resultMap>
     <resultMap id="BaseResultMapWithUserAndTypeInfo" type="com.sun.model.Information"
                extends="BaseResultMap">
         <association property="user" column="user_id" select="com.sun.dao.UserMapper.selectByPrimaryKey"/>
         <association property="typeInfo" column="type_id" select="com.sun.dao.TypeInfoMapper.selectByPrimaryKey"/>
-    </resultMap>
-    <resultMap id="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime" type="com.sun.model.Information"
-               extends="BaseResultMapWithUserAndTypeInfo">
-        <result column="readNum" property="count" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -122,61 +120,292 @@
     </select>
     <select id="selectByExampleOrderByTime" resultMap="BaseResultMapWithUserAndTypeInfo"
             parameterType="com.sun.model.InformationExample">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Base_Column_List"/>
-        from information
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        order by createDate desc
+select
+i.id, i.user_id, i.type_id, i.location, i.topic, i.is_anony, i.activity_time, i.contact_id, i.phone_num,
+    i.content, i.yn, i.ts, i.createDate, i.deleteDate,i.pic_url,t.readNum,r.favNum
+from
+information i
+,(select info_id,sum(is_read) as readNum from info_fav_read group by info_id) t
+,(select info_id,sum(is_fav) as favNum from info_fav_read group by info_id) r
+where
+i.id=t.info_id and i.id=r.info_id order by createDate desc
     </select>
-    <select id="selectByExampleOrderByViewAndTime" resultMap="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime"
+    <select id="selectByExampleOrderByViewAndTime" resultMap="BaseResultMapWithUserAndTypeInfo"
             parameterType="com.sun.model.InformationExample">
 select
 i.id, i.user_id, i.type_id, i.location, i.topic, i.is_anony, i.activity_time, i.contact_id, i.phone_num,
-    i.content, i.yn, i.ts, i.createDate, i.deleteDate,i.pic_url,t.readNum
+    i.content, i.yn, i.ts, i.createDate, i.deleteDate,i.pic_url,t.readNum,r.favNum
+from
+information i
+,(select info_id,sum(is_read) as readNum from info_fav_read group by info_id) t
+,(select info_id,sum(is_fav) as favNum from info_fav_read group by info_id) r
+where
+i.id=t.info_id and i.id=r.info_id order by readNum desc,createDate desc
+  </select>
+    <select id="selectByExampleOrderByFav" resultMap="BaseResultMapWithUserAndTypeInfo"
+            parameterType="com.sun.model.InformationExample">
+select
+i.id, i.user_id, i.type_id, i.location, i.topic, i.is_anony, i.activity_time, i.contact_id, i.phone_num,
+    i.content, i.yn, i.ts, i.createDate, i.deleteDate,i.pic_url,t.readNum,r.favNum
 from
 information i
 ,(select info_id,count(*) as readNum from info_fav_read group by info_id) t
+,(select info_id,count(*) as favNum from info_fav_read where is_fav=1 group by info_id) r
 where
-i.id=t.info_id order by readNUm desc,createDate desc
-  </select>
-    <select id="selectByExampleOrderByFav" resultMap="BaseResultMapWithUserAndTypeInfoOrderByReadAndTime"
-            parameterType="com.sun.model.InformationExample">
-select
-i.id, i.user_id, i.type_id, i.location, i.topic, i.is_anony, i.activity_time, i.contact_id, i.phone_num,
-    i.content, i.yn, i.ts, i.createDate, i.deleteDate,i.pic_url,t.readNum
-from
-information i
-,(select info_id,count(*) as readNum from info_fav_read where is_fav=1 group by info_id) t
-where
-i.id=t.info_id order by readNUm desc,createDate desc;
+i.id=t.info_id and i.id=r.info_id order by favNum desc,readNum desc,createDate desc;
   </select>
     <select id="selectByUseridOrderByView" resultMap="BaseResultMapWithUserAndTypeInfo"
             parameterType="string">
-        select * from information where id in
-        (select info_id from info_fav_read where user_id=#{userid} and is_read=1) order by createDate desc;
+SELECT
+	i.id,
+	i.user_id,
+	i.type_id,
+	i.location,
+	i.topic,
+	i.is_anony,
+	i.activity_time,
+	i.contact_id,
+	i.phone_num,
+	i.content,
+	i.yn,
+	i.ts,
+	i.createDate,
+	i.deleteDate,
+	i.pic_url,
+	t.readNum,
+	r.favNum
+FROM
+	information i,
+	(
+		SELECT
+			info_id,
+			sum(is_read) AS readNum
+		FROM
+			info_fav_read
+		GROUP BY
+			info_id
+	) t,
+	(
+		SELECT
+			info_id,
+			sum(is_fav) AS favNum
+		FROM
+			info_fav_read
+		GROUP BY
+			info_id
+	) r
+WHERE
+	i.id = t.info_id
+AND i.id = r.info_id
+AND id IN (
+	SELECT
+		info_id
+	FROM
+		info_fav_read
+	WHERE
+		user_id = #{userid}
+	AND is_read = 1
+)
+ORDER BY
+	readNum DESC,
+	createDate DESC
     </select>
     <select id="selectByUseridOrderByFav" resultMap="BaseResultMapWithUserAndTypeInfo"
             parameterType="string">
-        select * from information where id in
-        (select info_id from info_fav_read where user_id=#{userid} and is_fav=1) order by createDate desc;
+        SELECT
+	i.id,
+	i.user_id,
+	i.type_id,
+	i.location,
+	i.topic,
+	i.is_anony,
+	i.activity_time,
+	i.contact_id,
+	i.phone_num,
+	i.content,
+	i.yn,
+	i.ts,
+	i.createDate,
+	i.deleteDate,
+	i.pic_url,
+	t.readNum,
+	r.favNum
+FROM
+	information i,
+	(
+		SELECT
+			info_id,
+			sum(is_read) AS readNum
+		FROM
+			info_fav_read
+		GROUP BY
+			info_id
+	) t,
+	(
+		SELECT
+			info_id,
+			sum(is_fav) AS favNum
+		FROM
+			info_fav_read
+		GROUP BY
+			info_id
+	) r
+WHERE
+	i.id = t.info_id
+AND i.id = r.info_id
+AND id IN (
+	SELECT
+		info_id
+	FROM
+		info_fav_read
+	WHERE
+		user_id = #{userid}
+	AND is_read = 1
+)
+ORDER BY
+	favNum DESC,
+	createDate DESC
+    </select>
+    <select id="selectByTypeid" resultMap="BaseResultMapWithUserAndTypeInfo"
+            parameterType="java.lang.Integer">
+        SELECT
+	i.id,
+	i.user_id,
+	i.type_id,
+	i.location,
+	i.topic,
+	i.is_anony,
+	i.activity_time,
+	i.contact_id,
+	i.phone_num,
+	i.content,
+	i.yn,
+	i.ts,
+	i.createDate,
+	i.deleteDate,
+	i.pic_url,
+	t.readNum,
+	r.favNum
+FROM
+	information i,
+	(
+		SELECT
+			info_id,
+			sum(is_read) AS readNum
+		FROM
+			info_fav_read
+		GROUP BY
+			info_id
+	) t,
+	(
+		SELECT
+			info_id,
+			sum(is_fav) AS favNum
+		FROM
+			info_fav_read
+		GROUP BY
+			info_id
+	) r
+WHERE
+	i.id = t.info_id
+AND i.id = r.info_id
+AND i.type_id = #{typeid}
+ORDER BY
+	favNum DESC,
+	createDate DESC
     </select>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        from information
-        where id = #{id,jdbcType=INTEGER}
+        SELECT
+	i.id,
+	i.user_id,
+	i.type_id,
+	i.location,
+	i.topic,
+	i.is_anony,
+	i.activity_time,
+	i.contact_id,
+	i.phone_num,
+	i.content,
+	i.yn,
+	i.ts,
+	i.createDate,
+	i.deleteDate,
+	i.pic_url,
+	t.readNum,
+	r.favNum
+FROM
+	information i,
+	(
+		SELECT
+			info_id,
+			count(*) AS readNum
+		FROM
+			info_fav_read
+		GROUP BY
+			info_id
+	) t,
+	(
+		SELECT
+			info_id,
+			count(*) AS favNum
+		FROM
+			info_fav_read
+		WHERE
+			is_fav = 1
+		GROUP BY
+			info_id
+	) r
+WHERE
+	i.id = t.info_id
+AND i.id = r.info_id
+AND i.id = #{id,jdbcType=INTEGER}
     </select>
     <select id="selectByPrimaryKeyWithUserAndTypeInfo" resultMap="BaseResultMapWithUserAndTypeInfo"
             parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        from information
-        where id = #{id,jdbcType=INTEGER}
+        SELECT
+	i.id,
+	i.user_id,
+	i.type_id,
+	i.location,
+	i.topic,
+	i.is_anony,
+	i.activity_time,
+	i.contact_id,
+	i.phone_num,
+	i.content,
+	i.yn,
+	i.ts,
+	i.createDate,
+	i.deleteDate,
+	i.pic_url,
+	t.readNum,
+	r.favNum
+FROM
+	information i,
+	(
+		SELECT
+			info_id,
+			count(*) AS readNum
+		FROM
+			info_fav_read
+		GROUP BY
+			info_id
+	) t,
+	(
+		SELECT
+			info_id,
+			count(*) AS favNum
+		FROM
+			info_fav_read
+		WHERE
+			is_fav = 1
+		GROUP BY
+			info_id
+	) r
+WHERE
+	i.id = t.info_id
+AND i.id = r.info_id
+AND i.id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from information

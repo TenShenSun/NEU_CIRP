@@ -81,6 +81,11 @@ public class InformationServiceImpl implements InformationService {
     }
 
     @Override
+    public List<Information> getInformationsByUseridOrderByPost(String userid) {
+        return mapper.selectByUseridOrderByPost(userid);
+    }
+
+    @Override
     public int putInformation(Information information) {
         return mapper.updateByPrimaryKeySelective(information);
     }

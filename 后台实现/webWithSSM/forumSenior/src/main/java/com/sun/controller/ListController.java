@@ -67,6 +67,13 @@ public class ListController {
         return informationList;
     }
 
+    @RequestMapping(value = "/informationOnUserWithPost/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Information> listInformationOnUserWithPost(@PathVariable String id) {
+        List<Information> informationList = service.getInformationsByUseridOrderByPost(id);
+        return informationList;
+    }
+
     @RequestMapping(value = "/informationGroupByTypeid/{id}", method = RequestMethod.GET)
     @ResponseBody
     public List<Information> listInformationGroupByTypeid(@PathVariable Integer id) {

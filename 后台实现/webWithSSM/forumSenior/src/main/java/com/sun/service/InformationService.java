@@ -30,6 +30,8 @@ public interface InformationService {
 
     public List<Information> getInformationsByUseridOrderByFav(String userid);
 
+    public List<Information> getInformationsByUseridOrderByPost(String userid);
+
     public int putInformation(Information information);
 
     public int deleteInformation(Integer id);

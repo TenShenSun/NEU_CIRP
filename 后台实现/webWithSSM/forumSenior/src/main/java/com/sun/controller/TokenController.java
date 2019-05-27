@@ -15,6 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/token")
 @Controller
 public class TokenController {
+    /**
+     *
+     * @param accessKey
+     * @param secretKey
+     * @param bucket
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value="/qiniu/{accessKey}/{secretKey}/{bucket}",method = RequestMethod.GET)
     public String qiniuToken(@PathVariable String accessKey,@PathVariable String secretKey,@PathVariable String bucket){

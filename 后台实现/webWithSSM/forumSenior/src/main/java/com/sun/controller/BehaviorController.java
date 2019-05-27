@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 
-
 @Controller
 @RequestMapping("")
 public class BehaviorController {
@@ -20,7 +19,11 @@ public class BehaviorController {
     @Autowired
     private BehaviorService service;
 
-    //OK
+    /**
+     * 增加用户行为，用户行为中有userId（String），behavior(String)
+     * @param behavior
+     * @return String
+     */
     @RequestMapping(value = "/behavior", method = RequestMethod.POST)
     @ResponseBody
     public String addBehavior(@RequestBody Behavior behavior) {

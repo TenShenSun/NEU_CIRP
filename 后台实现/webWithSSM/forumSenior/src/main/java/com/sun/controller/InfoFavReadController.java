@@ -17,7 +17,12 @@ public class InfoFavReadController {
     @Autowired
     private InfoFavReadService service;
 
-    //OK
+    /**
+     * 增加用户和信息之间的阅读收藏关系，userId（String),infoId(Integer),isFav(Boolean),isRead(Boolean)。
+     * 方法类型为POST，在Content中json传入对象infoFavRead，增加方法用来阅读行为
+     * @param infoFavRead
+     * @return
+     */
     @RequestMapping(value = "/infofavread", method = RequestMethod.POST)
     @ResponseBody
     public String addInfoFavRead(@RequestBody InfoFavRead infoFavRead) {
@@ -25,15 +30,26 @@ public class InfoFavReadController {
         return "add inforavread success";
     }
 
-    //OK
+    /**
+     * 获取用户和信息之间的阅读收藏关系，根据主键查询，主键为userid(String)和infoid(Integer)。
+     * 方法类型为GET，查询结果中还有连表查询得到的USer信息和Information信息
+     * @param userid
+     * @param infoid
+     * @return
+     */
     @RequestMapping(value = "/infofavread/{userid}/{infoid}", method = RequestMethod.GET)
     @ResponseBody
     public InfoFavRead selectInfoFavRead(@PathVariable String userid, @PathVariable Integer infoid) {
         InfoFavRead i = service.getInfoFavReadById(userid, infoid);
         return i;
     }
-//OK
-    // Json中Boolean用True或者False表示
+
+    /**
+     * 更新用户和信息之间的阅读收藏关系,根据主键进行更新，必须要传入userid(String)和infoid(Integer)来定位InfoFavRead。
+     * 方法类型为PUT，在content中json中传入对象，更新方法用来收藏和取消收藏行为
+     * @param infoFavRead
+     * @return
+     */
     @RequestMapping(value = "/infofavread", method = RequestMethod.PUT)
     @ResponseBody
     public String updateInfoFavRead(@RequestBody InfoFavRead infoFavRead) {
@@ -41,6 +57,13 @@ public class InfoFavReadController {
         return "update inforavread success";
     }
 
+    /**
+     * 删除用户和信息之间的阅读收藏关系，根据主键将InfoFavRead删除
+     * 方法类型为DELETE。前台基本用不到这个接口，不能删除自己的浏览记录
+     * @param userid
+     * @param infoid
+     * @return
+     */
     @RequestMapping(value = "/infofavread/{userid}/{infoid}", method = RequestMethod.DELETE)
     @ResponseBody
     public String deleteInfoFavRead(@PathVariable String userid, @PathVariable Integer infoid) {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
@@ -17,21 +18,24 @@ public class CommentController {
     private CommentService service;
 
     /**
-     * 增加comment记录
+     * 增加评论，comment中有commentId(Integer),pCommentId(Integer),userId(String),
+     * infoId(Integer),content(String)，方法为POST，在content中json传入Comment
      *
-     * @param comment 前端传递的comment对象
+     * @param comment
      * @return
      */
-
     @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     public String addComment(@RequestBody Comment comment) {
+        comment.setCreatedate(new Timestamp(System.currentTimeMillis()));
+        comment.setUpdatedate(new Timestamp(System.currentTimeMillis()));
         service.postComment(comment);
         return "add comment success";
     }
 
     /**
-     * 根据infoId查询comment列表
+     * 获取评论，根据InfoId获取，通过信息的InfoId获取这个下的所有评论，infoId（int）。方法为GET
+     * 访问/comment/{infoId}
      *
      * @param infoId
      * @return
@@ -43,7 +47,8 @@ public class CommentController {
     }
 
     /**
-     * 根据commentId删除comment
+     * 删除评论，根据主键commentId删除，commentId（int），方法为DELETE
+     * 访问/comment/{commentId}
      *
      * @param commentId
      * @return
@@ -57,7 +62,8 @@ public class CommentController {
 
 
     /**
-     * 根据CommentID修改commment
+     * 修改评论，更新Comment，要求是必须传入一个CommentId然后按主键对其他字段进行更新。方法为PUT。
+     * 在Content中json传入comment
      *
      * @param comment
      * @return
@@ -65,6 +71,7 @@ public class CommentController {
     @RequestMapping(value = "/comment", method = RequestMethod.PUT)
     @ResponseBody
     public String updateComment(@RequestBody Comment comment) {
+        comment.setUpdatedate(new Timestamp(System.currentTimeMillis()));
         service.putComment(comment);
         return "update comment success";
     }

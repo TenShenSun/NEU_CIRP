@@ -100,6 +100,8 @@ Page({
       title: '加载中',
       mask: true
     });
+    console.log("加载中")
+    console.log(urlList.newInfoList)
     wx.request({
       url: urlList.newInfoList,
       method: "GET",

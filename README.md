@@ -271,3 +271,61 @@ git status # 查看add的文件
 git reset HEAD # 撤销add的所有文件
 
 git reset HEAD XXX # 撤销add的XXX文件
+
+
+
+## SQL语句
+
+```sql
+-- 根据id查询消息信息和查看数收藏数
+SELECT
+	i.id,
+	i.user_id,
+	i.type_id,
+	i.location,
+	i.topic,
+	i.is_anony,
+	i.activity_time,
+	i.contact_id,
+	i.phone_num,
+	i.content,
+	i.yn,
+	i.ts,
+	i.createDate,
+	i.deleteDate,
+	i.pic_url,
+	res.readNum,
+	res.favNum
+FROM
+	information i
+LEFT JOIN (
+	SELECT
+		t.info_id,
+		t.readNum,
+		r.favNum
+	FROM
+		(
+			SELECT
+				info_id,
+				count(*) AS readNum
+			FROM
+				info_fav_read
+			GROUP BY
+				info_id
+		) t
+	INNER JOIN (
+		SELECT
+			info_id,
+			count(*) AS favNum
+		FROM
+			info_fav_read
+		WHERE
+			is_fav = 1
+		GROUP BY
+			info_id
+	) r ON t.info_id = r.info_id
+) res ON i.id = res.info_id
+WHERE
+	i.id = '111313149'
+```
+

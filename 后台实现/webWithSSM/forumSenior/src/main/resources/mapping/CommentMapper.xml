@@ -13,6 +13,7 @@
     <result column="extensive1" property="extensive1" jdbcType="VARCHAR" />
     <result column="extensive2" property="extensive2" jdbcType="VARCHAR" />
     <result column="is_like" property="isLike" jdbcType="BIT"/>
+    <association property="user" column="user_id" select="com.sun.dao.UserMapper.selectByPrimaryKey"/>
     <!--<association property="user" column="user_id" select="com.sun.dao.UserMapper.selectByPrimaryKey"/>-->
   </resultMap>
   <sql id="Example_Where_Clause" >

@@ -23,7 +23,7 @@ public class Comment {
 
     private String extensive2;
 
-    //private User user;
+    private User user;
 
     private Boolean isLike;
 
@@ -114,5 +114,13 @@ public class Comment {
 
     public void setIsLike(Boolean isLike) {
         this.isLike = isLike;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

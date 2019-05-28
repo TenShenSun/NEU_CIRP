@@ -21,5 +21,6 @@
         <mapper resource="mapping/TypeInfoMapper.xml"/>
         <mapper resource="mapping/UserMapper.xml"/>
         <mapper resource="mapping/CommentMapper.xml"/>
+        <mapper resource="mapping/CommentLikeMapper.xml"/>
     </mappers>
 </configuration>

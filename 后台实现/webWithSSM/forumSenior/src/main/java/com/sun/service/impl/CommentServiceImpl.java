@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService {
     @Autowired
@@ -30,9 +31,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getCommentsByInfoId(Integer infoId) {
-        CommentExample example=new CommentExample();
-        CommentExample.Criteria criteria=example.createCriteria();
+        CommentExample example = new CommentExample();
+        CommentExample.Criteria criteria = example.createCriteria();
         criteria.andInfoIdEqualTo(infoId);
+        example.setOrderByClause("createDate desc");
         return mapper.selectByExample(example);
     }
 

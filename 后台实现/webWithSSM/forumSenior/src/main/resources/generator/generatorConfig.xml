@@ -34,6 +34,6 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="comment" domainObjectName="Comment"></table>
+        <table tableName="comment_like" domainObjectName="CommentLike"></table>
     </context>
 </generatorConfiguration>

@@ -7,7 +7,7 @@ import com.sun.model.CommentExample;
 import java.util.List;
 
 public interface CommentService {
-    public int postComment(Comment comment);
+    public Comment postComment(Comment comment);
 
     public Comment getCommentById(Integer commentId);
 

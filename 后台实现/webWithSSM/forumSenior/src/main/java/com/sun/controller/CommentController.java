@@ -26,11 +26,10 @@ public class CommentController {
      */
     @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
-    public String addComment(@RequestBody Comment comment) {
+    public Comment addComment(@RequestBody Comment comment) {
         comment.setCreatedate(new Timestamp(System.currentTimeMillis()));
         comment.setUpdatedate(new Timestamp(System.currentTimeMillis()));
-        service.postComment(comment);
-        return "add comment success";
+        return service.postComment(comment);
     }
 
     /**

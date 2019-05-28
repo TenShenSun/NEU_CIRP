@@ -163,7 +163,9 @@ LEFT JOIN (
       #{yn,jdbcType=BIT}, #{updatedate,jdbcType=TIMESTAMP}, #{extensive1,jdbcType=VARCHAR}, 
       #{extensive2,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.sun.model.Comment" >
+
+
+  <insert id="insertSelective" parameterType="com.sun.model.Comment" useGeneratedKeys="true" keyProperty="commentId" keyColumn="comment_id">
     insert into comment
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="commentId != null" >

@@ -15,8 +15,10 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper mapper;
 
     @Override
-    public int postComment(Comment comment) {
-        return mapper.insertSelective(comment);
+    public Comment postComment(Comment comment) {
+        mapper.insertSelective(comment);
+        //System.out.println(comment.toString());
+        return comment;
     }
 
     @Override

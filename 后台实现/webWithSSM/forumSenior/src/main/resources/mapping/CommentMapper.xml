@@ -12,6 +12,8 @@
     <result column="updateDate" property="updatedate" jdbcType="TIMESTAMP" />
     <result column="extensive1" property="extensive1" jdbcType="VARCHAR" />
     <result column="extensive2" property="extensive2" jdbcType="VARCHAR" />
+    <result column="is_like" property="isLike" jdbcType="BIT"/>
+    <!--<association property="user" column="user_id" select="com.sun.dao.UserMapper.selectByPrimaryKey"/>-->
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -88,6 +90,52 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+  </select>
+  <select id="selectByExampleWithUserAndLike" resultMap="BaseResultMap">
+    SELECT
+	t.comment_id,
+	p_comment_id,
+	user_id,
+	info_id,
+	t.createDate,
+	content,
+	t.yn,
+	updateDate,
+	extensive1,
+	extensive2,
+	l.is_like
+FROM
+	(
+		SELECT
+			comment_id,
+			p_comment_id,
+			user_id,
+			info_id,
+			createDate,
+			content,
+			yn,
+			updateDate,
+			extensive1,
+			extensive2
+		FROM
+			`comment`
+		WHERE
+			(info_id = #{infoId,jdbcType=INTEGER})
+		ORDER BY
+			createDate DESC
+	) t
+LEFT JOIN `user` ON t.user_id = `user`.id
+LEFT JOIN (
+	SELECT
+		is_like,
+		comment_id
+	FROM
+		comment_like
+	WHERE
+		user_id = #{userId,jdbcType=VARCHAR}
+) l ON t.comment_id = l.comment_id
+
+
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

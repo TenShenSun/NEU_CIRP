@@ -46,6 +46,23 @@ public class CommentController {
         return service.getCommentsByInfoId(infoId);
     }
 
+
+    /**
+     * 获取评论，根据InfoId获取，通过信息的InfoId获取这个下的所有评论,user和点赞信息，infoId（int）。方法为GET
+     * 访问/comment/{infoId}
+     *
+     * @param infoId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/commentWithUserAndLike/{infoId}/{userId}", method = RequestMethod.GET)
+    public List<Comment> getCommentWithUserAndLikeList(@PathVariable int infoId,@PathVariable String userId) {
+        return service.getCommentsWithUserAndLikeByInfoId(infoId,userId);
+    }
+
+
+
+
     /**
      * 删除评论，根据主键commentId删除，commentId（int），方法为DELETE
      * 访问/comment/{commentId}

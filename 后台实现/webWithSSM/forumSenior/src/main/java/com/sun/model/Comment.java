@@ -23,6 +23,11 @@ public class Comment {
 
     private String extensive2;
 
+    //private User user;
+
+    private Boolean isLike;
+
+
     public Integer getCommentId() {
         return commentId;
     }
@@ -101,5 +106,13 @@ public class Comment {
 
     public void setExtensive2(String extensive2) {
         this.extensive2 = extensive2 == null ? null : extensive2.trim();
+    }
+
+    public Boolean getIsLike() {
+        return isLike;
+    }
+
+    public void setIsLike(Boolean isLike) {
+        this.isLike = isLike;
     }
 }

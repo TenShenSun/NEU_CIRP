@@ -39,6 +39,15 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public List<Comment> getCommentsWithUserAndLikeByInfoId(Integer infoId,String userId) {
+        /*CommentExample example = new CommentExample();
+        CommentExample.Criteria criteria = example.createCriteria();
+        criteria.andInfoIdEqualTo(infoId);
+        example.setOrderByClause("createDate desc");*/
+        return mapper.selectByExampleWithUserAndLike(infoId,userId);
+    }
+
+    @Override
     public int putComment(Comment comment) {
         return mapper.updateByPrimaryKeySelective(comment);
     }

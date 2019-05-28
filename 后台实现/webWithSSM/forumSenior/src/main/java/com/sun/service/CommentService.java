@@ -15,6 +15,8 @@ public interface CommentService {
 
     public List<Comment> getCommentsByInfoId(Integer infoId);
 
+    public List<Comment> getCommentsWithUserAndLikeByInfoId(Integer infoId,String userId);
+
     public int putComment(Comment comment);
 
     public int deleteComment(Integer commentId);

@@ -355,7 +355,7 @@ ORDER BY i.createDate desc
 
     <select id="selectByTypeid" resultMap="BaseResultMapWithUserAndTypeInfo"
             parameterType="java.lang.Integer">
-        SELECT
+     SELECT
 	i.id,
 	i.user_id,
 	i.type_id,
@@ -374,32 +374,28 @@ ORDER BY i.createDate desc
 	t.readNum,
 	r.favNum
 FROM
-	information i,
-	(
-		SELECT
-			info_id,
-			sum(is_read) AS readNum
-		FROM
-			info_fav_read
-		GROUP BY
-			info_id
-	) t,
-	(
-		SELECT
-			info_id,
-			sum(is_fav) AS favNum
-		FROM
-			info_fav_read
-		GROUP BY
-			info_id
-	) r
+	information i
+LEFT OUTER JOIN (
+	SELECT
+		info_id,
+		sum(is_read) AS readNum
+	FROM
+		info_fav_read
+	GROUP BY
+		info_id
+) t ON (i.id = t.info_id)
+LEFT OUTER JOIN (
+	SELECT
+		info_id,
+		sum(is_fav) AS favNum
+	FROM
+		info_fav_read
+	GROUP BY
+		info_id
+) r ON (i.id = r.info_id)
 WHERE
-	i.id = t.info_id
-AND i.id = r.info_id
-AND i.type_id = #{typeid}
-ORDER BY
-	favNum DESC,
-	createDate DESC
+	i.type_id = #{typeid}
+ORDER BY i.createDate desc
     </select>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 	  SELECT

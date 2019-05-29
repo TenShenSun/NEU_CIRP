@@ -249,7 +249,6 @@ AND id IN (
 	AND is_read = 1
 )
 ORDER BY
-	readNum DESC,
 	createDate DESC
     </select>
     <select id="selectByUseridOrderByFav" resultMap="BaseResultMapWithUserAndTypeInfo"
@@ -305,7 +304,6 @@ AND id IN (
 	AND is_fav = 1
 )
 ORDER BY
-	favNum DESC,
 	createDate DESC
     </select>
     <select id="selectByUseridOrderByPost" resultMap="BaseResultMapWithUserAndTypeInfo"

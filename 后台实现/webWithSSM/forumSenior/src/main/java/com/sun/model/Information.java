@@ -39,6 +39,8 @@ public class Information {
 
     private Integer favCount;
 
+    private Integer commentCount;
+
     private String picUrl;
 
     public Integer getId() {
@@ -191,5 +193,13 @@ public class Information {
 
     public void setFavCount(Integer favCount) {
         this.favCount = favCount;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 }

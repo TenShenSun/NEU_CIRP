@@ -87,7 +87,7 @@ public class ListController {
     }
 
     /**
-     * 返回一个用户阅读过的信息列表
+     * 返回一个用户阅读过的信息列表，浏览历史
      * 方法类型为GET，/informationOnUserWithView/{id}，id为阅读者的id。
      * @param id
      * @return
@@ -100,7 +100,7 @@ public class ListController {
     }
 
     /**
-     * 返回一个用户收藏过的信息列表
+     * 返回一个用户收藏过的信息列表,我的收藏
      * 方法类型为GET，/informationOnUserWithFav/{id}，id为收藏者的id。
      * @param id
      * @return
@@ -113,7 +113,7 @@ public class ListController {
     }
 
     /**
-     * 返回一个用户发布过的信息列表
+     * 返回一个用户发布过的信息列表，发布记录
      * 方法类型为GET，/informationOnUserWithPost/{id}，id为发布者的id。
      * @param id
      * @return

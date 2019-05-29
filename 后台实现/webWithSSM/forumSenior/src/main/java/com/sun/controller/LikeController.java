@@ -30,7 +30,7 @@ public class LikeController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/commentLike/", method = RequestMethod.POST)
+    @RequestMapping(value = "/commentLike", method = RequestMethod.POST)
     public String addIsLike(@RequestBody CommentLike commentLike) {
         CommentLikeExample example = new CommentLikeExample();
         CommentLikeExample.Criteria criteria = example.createCriteria();
@@ -63,7 +63,7 @@ public class LikeController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/commentLike/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/commentLike", method = RequestMethod.PUT)
     public String updateIsLike(@RequestBody CommentLike commentLike) {
         commentLike.setCommentId(commentLike.getCommentId());
         commentLike.setIsLike(commentLike.getIsLike());

@@ -302,7 +302,7 @@ AND id IN (
 		info_fav_read
 	WHERE
 		user_id = #{userid}
-	AND is_read = 1
+	AND is_fav = 1
 )
 ORDER BY
 	favNum DESC,
@@ -350,7 +350,7 @@ LEFT OUTER JOIN (
 ) r ON (i.id = r.info_id)
 WHERE
 	i.user_id = #{userid}
-ORDER BY i.createDate
+ORDER BY i.createDate desc
     </select>
 
     <select id="selectByTypeid" resultMap="BaseResultMapWithUserAndTypeInfo"

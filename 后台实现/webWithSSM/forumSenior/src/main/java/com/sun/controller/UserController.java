@@ -33,10 +33,19 @@ public class UserController {
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
     public String addUser(@RequestBody User user) {
+        User user1=userService.getUserById(user.getId());
         user.setTs(new Timestamp(System.currentTimeMillis()));
-        user.setCreatedate(new Timestamp(System.currentTimeMillis()));
-        userService.postUser(user);
-        return "add user success";
+        if (user1==null){
+            user.setCreatedate(new Timestamp(System.currentTimeMillis()));
+            user.setTs(new Timestamp(System.currentTimeMillis()));
+            userService.postUser(user);
+            return "add user success";
+        }else {
+            user.setTs(new Timestamp(System.currentTimeMillis()));
+            userService.putUser(user);
+            return "alter user success";
+        }
+
     }
 
     /**
